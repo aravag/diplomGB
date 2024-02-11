@@ -12,7 +12,7 @@
 }
 
 .quest__controls,
-.quest,
+.quest.active,
 .quest__btns,
 .quest__controls-item {
     display: flex;
@@ -20,6 +20,10 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
+}
+
+.quest {
+    display: none;
 }
 
 .quest {
@@ -84,6 +88,8 @@
     position: fixed;
     color: #ffffff;
     justify-content: flex-end;
+    opacity: 0;
+    transition: 0.3s opacity ease;
 }
 
 .quest__controls {
@@ -102,7 +108,8 @@
 }
 
 .quest__controls-item,
-.quest__btns-item {
+.quest__btns-item,
+.start-quest__btn {
     cursor: pointer;
 }
 
@@ -126,4 +133,32 @@
 .quest__dialogue,
 .quest__btns-item {
     border: 3px solid #ffffff;
+}
+
+.start-quest {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.start-quest__btn {
+    padding: 10px 12px;
+    margin-top: 12px;
+    border-radius: 5px;
+    background: blue;
+    color: #ffffff;
+}
+
+.start-quest__btn,
+.quest__controls-item,
+.quest__btns-item {
+    transition: 0.3s transform ease;
+}
+
+.start-quest__btn:hover,
+.quest__controls-item:hover,
+.quest__btns-item:hover {
+    transform: scale(1.05);
 }
