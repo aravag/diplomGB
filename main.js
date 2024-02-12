@@ -1,4 +1,4 @@
-import { sceneConfigurations } from "./components/sceneConfigurations.js";
+import { sceneConfigurations, userName, dialogsConfigurations } from "./components/sceneConfigurations.js";
 
 const startBtn = document.querySelector(".start-quest__btn");
 const closeQuest = document.querySelector(".quest__controls-close");
