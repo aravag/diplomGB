@@ -6,7 +6,8 @@
 
 .container,
 .quest__dialogue,
-.quest__btns {
+.quest__btns,
+.quest__action-img {
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -24,6 +25,15 @@
 
 .quest {
     display: none;
+}
+
+.quest__action-img {
+    width: 80vw;
+    position: relative;
+}
+
+.quest__action-img img {
+    object-fit: contain;
 }
 
 .quest {
@@ -58,12 +68,14 @@
 .quest__background-image,
 .quest__background,
 .quest__dialogue,
-.quest__btns {
+.quest__btns,
+.quest__action-img img {
     width: 100%;
 }
 
 .quest__background-image,
-.quest__background {
+.quest__background,
+.quest__action-img img {
     height: 100%;
 }
 
@@ -161,4 +173,10 @@
 .quest__controls-item:hover,
 .quest__btns-item:hover {
     transform: scale(1.05);
+}
+
+.quest__btns[hastestbtns="true"] {
+    position: absolute;
+    flex-direction: row;
+    justify-content: center;
 }
