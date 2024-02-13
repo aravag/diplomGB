@@ -10,6 +10,7 @@ const questDialogue = questWindow.querySelector(".quest__dialogue");
 const response = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
+const userName = "Иван";
 
 startBtn.addEventListener("click", () => {
     if (!questWindow.classList.contains("active")) {
@@ -21,7 +22,34 @@ startBtn.addEventListener("click", () => {
 });
 
 closeQuest.addEventListener("click", () => {
-    // сделать окно с вопросом
+    const confirmWindow = document.createElement("div");
+    confirmWindow.className = "quest__close-confirm";
+    const confirmTitle = document.createElement("h2");
+    confirmTitle.className = "quest__close-confirm-title";
+    confirmTitle.textContent = "Точно хочешь уйти? Прогресс сбросится..."
+    const confirmBtnContainer = document.createElement("div");
+    confirmBtnContainer.className = "quest__close-confirm-btns";
+    const confirmBtnYes = document.createElement("div");
+    confirmBtnYes.className = "quest__close-confirm-btns-item";
+    confirmBtnYes.textContent = "Yep";
+    const confirmBtnNo = document.createElement("div");
+    confirmBtnNo.className = "quest__close-confirm-btns-item";
+    confirmBtnNo.textContent = "Nope";
+    confirmBtnContainer.append(confirmBtnYes, confirmBtnNo);
+    confirmWindow.append(confirmTitle, confirmBtnContainer);
+    document.body.append(confirmWindow);
+    // const confirmWindow = document.createElement("div");
+    // confirmWindow.className = "quest__close-confirm";
+    // confirmWindow.innerHTML = `
+    // <h2 class="quest__close-confirm-title">Точно хочешь уйти? Прогресс сбросится...</h2>
+    // <div class="quest__close-confirm-btns">
+    //     ${confirmBtnYes}
+    //     ${confirmBtnNo.addEventListener('click', () => {
+    //         console.log("No");
+    //     })}
+    // </div>
+    // `;
+    // document.body.append(confirmWindow);
     if (questWindow.classList.contains("active")) {
         questWindow.style.opacity = "0";
         setTimeout(() => {
@@ -31,13 +59,13 @@ closeQuest.addEventListener("click", () => {
 });
 
 function switchScene() {
-    if (sceneCounter < sceneConfigurations.length) {
-        const currentScene = sceneConfigurations[sceneCounter];
+    if (sceneCounter < sceneConfigurations(userName).length) {
+        const currentScene = sceneConfigurations(userName)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
         questDialogue.textContent = currentDialogue.dialogue;
         if (currentDialogue.isTestBtns) {
-            questBtnsContainer.setAttribute("hastestbtns", "true");
+            questWindow.setAttribute("istest", "true");
             const questActionImg = document.createElement("div");
             questActionImg.className = "quest__action-img";
             const questActionImgItem = document.createElement("img");
@@ -45,7 +73,7 @@ function switchScene() {
             questActionImg.append(questActionImgItem);
             questWindow.insertBefore(questActionImg, questBtnsContainer);
         } else {
-            questBtnsContainer.setAttribute("hastestbtns", "false");
+            questWindow.setAttribute("istest", "false");
             const questActionImg = document.querySelector(".quest__action-img");
             if (questActionImg) {
                 questActionImg.remove();
