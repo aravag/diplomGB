@@ -22,34 +22,25 @@ startBtn.addEventListener("click", () => {
 });
 
 closeQuest.addEventListener("click", () => {
-    const confirmWindow = document.createElement("div");
-    confirmWindow.className = "quest__close-confirm";
-    const confirmTitle = document.createElement("h2");
-    confirmTitle.className = "quest__close-confirm-title";
-    confirmTitle.textContent = "Точно хочешь уйти? Прогресс сбросится..."
-    const confirmBtnContainer = document.createElement("div");
-    confirmBtnContainer.className = "quest__close-confirm-btns";
-    const confirmBtnYes = document.createElement("div");
-    confirmBtnYes.className = "quest__close-confirm-btns-item";
-    confirmBtnYes.textContent = "Yep";
-    const confirmBtnNo = document.createElement("div");
-    confirmBtnNo.className = "quest__close-confirm-btns-item";
-    confirmBtnNo.textContent = "Nope";
-    confirmBtnContainer.append(confirmBtnYes, confirmBtnNo);
-    confirmWindow.append(confirmTitle, confirmBtnContainer);
-    document.body.append(confirmWindow);
-    // const confirmWindow = document.createElement("div");
-    // confirmWindow.className = "quest__close-confirm";
-    // confirmWindow.innerHTML = `
-    // <h2 class="quest__close-confirm-title">Точно хочешь уйти? Прогресс сбросится...</h2>
-    // <div class="quest__close-confirm-btns">
-    //     ${confirmBtnYes}
-    //     ${confirmBtnNo.addEventListener('click', () => {
-    //         console.log("No");
-    //     })}
-    // </div>
-    // `;
-    // document.body.append(confirmWindow);
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        `<div class="quest__confirm">
+            <h2 class="quest__confirm-title">Точно хочешь уйти? Прогресс сбросится...</h2>
+            <div class="quest__confirm-btns">
+                <div class="quest__confirm-btns-item" id="confirmBtnYes">Yep</div>
+                <div class="quest__confirm-btns-item" id="confirmBtnNo">Nope</div>
+            </div>
+        </div>`
+    );
+
+    document.getElementById("confirmBtnYes").addEventListener("click", () => {
+        console.log("Yes");
+    });
+
+    document.getElementById("confirmBtnNo").addEventListener("click", () => {
+        console.log("No");
+    });
+
     if (questWindow.classList.contains("active")) {
         questWindow.style.opacity = "0";
         setTimeout(() => {
