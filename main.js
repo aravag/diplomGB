@@ -10,6 +10,7 @@ const questDialogue = questWindow.querySelector(".quest__dialogue");
 const response = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
+const userName = "Иван";
 
 startBtn.addEventListener("click", () => {
     if (!questWindow.classList.contains("active")) {
@@ -21,7 +22,25 @@ startBtn.addEventListener("click", () => {
 });
 
 closeQuest.addEventListener("click", () => {
-    // сделать окно с вопросом
+    document.body.insertAdjacentHTML(
+        "beforeend",
+        `<div class="quest__confirm">
+            <h2 class="quest__confirm-title">Точно хочешь уйти? Прогресс сбросится...</h2>
+            <div class="quest__confirm-btns">
+                <div class="quest__confirm-btns-item" id="confirmBtnYes">Yep</div>
+                <div class="quest__confirm-btns-item" id="confirmBtnNo">Nope</div>
+            </div>
+        </div>`
+    );
+
+    document.getElementById("confirmBtnYes").addEventListener("click", () => {
+        console.log("Yes");
+    });
+
+    document.getElementById("confirmBtnNo").addEventListener("click", () => {
+        console.log("No");
+    });
+
     if (questWindow.classList.contains("active")) {
         questWindow.style.opacity = "0";
         setTimeout(() => {
@@ -31,13 +50,13 @@ closeQuest.addEventListener("click", () => {
 });
 
 function switchScene() {
-    if (sceneCounter < sceneConfigurations.length) {
-        const currentScene = sceneConfigurations[sceneCounter];
+    if (sceneCounter < sceneConfigurations(userName).length) {
+        const currentScene = sceneConfigurations(userName)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
         questDialogue.textContent = currentDialogue.dialogue;
         if (currentDialogue.isTestBtns) {
-            questBtnsContainer.setAttribute("hastestbtns", "true");
+            questWindow.setAttribute("istest", "true");
             const questActionImg = document.createElement("div");
             questActionImg.className = "quest__action-img";
             const questActionImgItem = document.createElement("img");
@@ -45,7 +64,7 @@ function switchScene() {
             questActionImg.append(questActionImgItem);
             questWindow.insertBefore(questActionImg, questBtnsContainer);
         } else {
-            questBtnsContainer.setAttribute("hastestbtns", "false");
+            questWindow.setAttribute("istest", "false");
             const questActionImg = document.querySelector(".quest__action-img");
             if (questActionImg) {
                 questActionImg.remove();
