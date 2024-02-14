@@ -1,3 +1,13 @@
+:root {
+    --dialogueMarginBottom: max(1.75rem, min(7dvh, 4rem));
+    --dialogueMarginTop: 1.25rem;
+    --dialoguePaddingTop: 0.75rem;
+    --dialoguePaddingBottom: 2rem;
+    --dialogueBorderTopBottom: 24;
+    --dialogueBorderWidth: 1rem;
+    --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderTopBottom) * 2px + var(--dialogueBorderWidth) * 2);
+}
+
 * {
     margin: 0;
     padding: 0;
