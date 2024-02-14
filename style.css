@@ -8,14 +8,11 @@
     --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderTopBottom) * 2px + var(--dialogueBorderWidth) * 2);
 }
 
-<<<<<<< HEAD
-=======
 @font-face {
     font-family: 'Boozy';
     src: url(./components/boozy.ttf);
 }
 
->>>>>>> ba7cd708eb7f2e9e56ad60c2696f9c5e8424d67d
 * {
     margin: 0;
     padding: 0;
