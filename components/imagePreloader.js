@@ -3,6 +3,8 @@ export const imagePathsToPreload = {
     background2: "./images/bg2.png",
     char1: "./images/char1.svg",
     char2: "./images/char2.svg",
+    storyteller1: "./images/storyteller1.svg",
+    storyteller2: "./images/storyteller2.svg",
     actionImage1: "./images/1.png",
     actionImage2: "./images/2.png",
     actionImage3: "./images/3.png",
