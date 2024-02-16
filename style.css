@@ -24,7 +24,7 @@ html {
 }
 
 .container,
-.quest__dialogue,
+.quest__text,
 .quest__btns,
 .quest__action-img {
     max-width: 960px;
@@ -138,7 +138,8 @@ html {
 
 .quest__background-image,
 .quest__background,
-.quest__dialogue,
+.quest__text-dialogue,
+.quest__text,
 .quest__btns,
 .quest__action-img img,
 .quest__action-img:after,
@@ -160,7 +161,8 @@ html {
     height: 100%;
 }
 
-.quest__action-img {
+.quest__action-img,
+.quest__text {
     position: relative;
 }
 
@@ -170,7 +172,8 @@ html {
 .quest[istest="true"] .quest__btns,
 .quest__action-img:after,
 .quest.active:before,
-.quest__character {
+.quest__character,
+.quest__text-storyteller {
     position: absolute;
 }
 
@@ -185,7 +188,8 @@ html {
 
 .quest__background,
 .quest,
-.quest__action-img:after {
+.quest__action-img:after,
+.quest__text-storyteller {
     top: 0;
 }
 
@@ -209,6 +213,10 @@ html {
     color: #ffffff;
     transition: 0.3s opacity ease;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
 }
 
 .quest,
@@ -222,7 +230,7 @@ html {
     z-index: 1;
 }
 
-.quest__dialogue,
+.quest__text-dialogue,
 .quest__confirm,
 .quest__character,
 .quest__character-input {
@@ -236,14 +244,14 @@ html {
     -webkit-border-image-slice: var(--dialogueBorderTopBottom) 14 var(--dialogueBorderTopBottom) 16 fill;
 }
 
-.quest__dialogue {
+.quest__text-dialogue {
     padding: var(--dialoguePaddingTop) var(--dialoguePaddingTop) var(--dialoguePaddingBottom);
     margin: var(--dialogueMarginTop) auto var(--dialogueMarginBottom) auto;
 }
 
 .start-quest__btn,
 .quest__btns-item,
-.quest__dialogue {
+.quest__text-dialogue {
     text-shadow: 0 0 4px black;
 }
 
@@ -263,7 +271,7 @@ html {
 }
 
 .start-quest,
-.quest__dialogue,
+.quest__text-dialogue,
 .quest__confirm,
 .quest__character {
     text-align: center;
@@ -304,6 +312,7 @@ html {
 
 .quest[istest="true"] .quest__btns {
     bottom: calc(var(--dialogueMarginBottom) / 2);
+    z-index: 1;
 }
 
 .quest__action-img:after {
@@ -386,5 +395,13 @@ html {
 }
 
 .quest__character-input::placeholder {
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.quest__text-storyteller {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1rem;
+    background: red;
+    font-size: 1.25rem;
 }

@@ -1,4 +1,5 @@
 import { sceneConfigurations } from "./components/sceneConfigurations.js";
+import { charBoy, charGirl } from "./components/imagePreloader.js";
 
 const startBtn = document.querySelector(".start-quest__btn");
 const closeQuest = document.querySelector(".quest__controls-close");
@@ -12,15 +13,25 @@ const questCharacterInput = questCharacterPage.querySelector(".quest__character-
 const questBackground = questWindow.querySelector(".quest__background");
 const questBackgroundImage = questBackground.querySelector(".quest__background-image");
 const questBtnsContainer = questWindow.querySelector(".quest__btns");
-const questDialogue = questWindow.querySelector(".quest__dialogue");
+const questTextContainer = questWindow.querySelector(".quest__text");
+const questDialogue = questTextContainer.querySelector(".quest__text-dialogue");
+const questChars = questCharacterPage.querySelectorAll(".quest__character-item");
 let response = [];
+let resultResponse = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
 let userName;
+let charArr;
+
+questChars.forEach((charItem, index) => {
+    charItem.addEventListener("click", () => {
+        index == 0 ? (charArr = charBoy) : (charArr = charGirl);
+    });
+});
 
 function switchScene() {
-    if (sceneCounter < sceneConfigurations(userName).length) {
-        const currentScene = sceneConfigurations(userName)[sceneCounter];
+    if (sceneCounter < sceneConfigurations(userName, charArr).length) {
+        const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
         questDialogue.textContent = currentDialogue.dialogue;
@@ -38,6 +49,20 @@ function switchScene() {
             const questActionImg = document.querySelector(".quest__action-img");
             if (questActionImg) {
                 questActionImg.remove();
+            }
+        }
+        if (currentDialogue.storyteller) {
+            if (!document.querySelector(".quest__text-storyteller")) {
+                const storytellerElem = document.createElement("div");
+                storytellerElem.className = "quest__text-storyteller";
+                storytellerElem.textContent = currentDialogue.storyteller;
+                questTextContainer.prepend(storytellerElem);
+            } else {
+                document.querySelector(".quest__text-storyteller").textContent = currentDialogue.storyteller;
+            }
+        } else {
+            if (document.querySelector(".quest__text-storyteller")) {
+                document.querySelector(".quest__text-storyteller").remove();
             }
         }
         questBtnsContainer.innerHTML = "";
@@ -62,6 +87,7 @@ function switchScene() {
         }
     } else {
         questBtnsContainer.innerHTML = "";
+        console.log(response);
     }
 }
 
@@ -82,7 +108,6 @@ function handleCharactersParts() {
 
 function activateNextPart() {
     const currentPart = questWindow.querySelector(".quest__character-part.active");
-
     if (currentPart) {
         currentPart.classList.remove("active");
         const nextPart = currentPart.nextElementSibling;
@@ -95,7 +120,7 @@ function activateNextPart() {
 function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
-            questBackgroundImage.src = "./images/bg2.png";
+            questBackgroundImage.src = "./images/bg1.png";
             handleCharacterPage(true);
             questWindow.classList.add("active");
             questCharacterParts[0].classList.add("active");
