@@ -15,19 +15,12 @@ const questBackgroundImage = questBackground.querySelector(".quest__background-i
 const questBtnsContainer = questWindow.querySelector(".quest__btns");
 const questTextContainer = questWindow.querySelector(".quest__text");
 const questDialogue = questTextContainer.querySelector(".quest__text-dialogue");
-const questChars = questCharacterPage.querySelectorAll(".quest__character-item");
+const resultResponse = [0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 2, 2, 1, 2];
 let response = [];
-let resultResponse = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
 let userName;
 let charArr;
-
-questChars.forEach((charItem, index) => {
-    charItem.addEventListener("click", () => {
-        index == 0 ? (charArr = charBoy) : (charArr = charGirl);
-    });
-});
 
 function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
@@ -74,7 +67,6 @@ function switchScene() {
                 switchScene();
                 if (currentDialogue.isTestBtns) {
                     response.push(index);
-                    console.log(response);
                 }
             });
             questBtnsContainer.append(btnElement);
@@ -86,8 +78,42 @@ function switchScene() {
             sceneCounter++;
         }
     } else {
+        const correctAnswers = response.reduce((count, userAnswer, index) => {
+            const correctAnswer = resultResponse[index];
+            return userAnswer === correctAnswer ? count + 1 : count;
+        }, 0);
         questBtnsContainer.innerHTML = "";
-        console.log(response);
+        questTextContainer.style.display = "none";
+        questBackgroundImage.src = "./images/bg1.png";
+        questWindow.insertAdjacentHTML(
+            "beforeend",
+            `<div class="quest__result">
+                <h2 class="quest__result-title">${(correctAnswers / resultResponse.length) * 100 < 50 ? `${userName}, попробуй еще раз.` : `Молодец, ${userName}!`}</h2>
+                <p class="quest__result-finals">
+                    Количество правильных ответов: ${correctAnswers} из ${resultResponse.length}.
+                </p>
+                <div class="quest__result-btns">
+                    <div class="quest__result-btns-item" id="result-btn__startover">
+                        Начать сначала
+                    </div>
+                    <div class="quest__result-btns-item" id="result-btn__end">
+                        Завершить
+                    </div>
+                </div>
+            </div>`
+        );
+        const questResultBtns = questWindow.querySelector(".quest__result-btns");
+        questResultBtns.addEventListener("click", (event) => {
+            if (event.target.closest(".quest__result-btns-item")) {
+                if (event.target.closest("#result-btn__startover")) {
+                    resetQuest();
+                } else if (event.target.closest("#result-btn__end")) {
+                    completeQuest();
+                }
+                questWindow.querySelector(".quest__result").remove();
+                questTextContainer.style.display = "";
+            }
+        });
     }
 }
 
@@ -117,6 +143,23 @@ function activateNextPart() {
     }
 }
 
+function completeQuest() {
+    if (questWindow.classList.contains("active")) {
+        questWindow.style.opacity = "0";
+        setTimeout(() => {
+            questWindow.classList.remove("active");
+            resetQuest();
+        }, 400);
+    }
+}
+
+function resetQuest() {
+    sceneCounter = 0;
+    dialogueCounter = 0;
+    response = [];
+    switchScene();
+}
+
 function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
@@ -131,7 +174,12 @@ function init() {
     });
 
     questFirstPartBtn.addEventListener("click", activateNextPart);
-    chooseCharacterBtns.forEach((item) => item.addEventListener("click", activateNextPart));
+    chooseCharacterBtns.forEach((item, index) =>
+        item.addEventListener("click", () => {
+            activateNextPart();
+            index == 0 ? (charArr = charBoy) : (charArr = charGirl);
+        })
+    );
 
     startQuiz.addEventListener("click", () => {
         if (questCharacterInput.value == "") {
@@ -166,16 +214,7 @@ function init() {
 
         document.getElementById("confirm__yes").addEventListener("click", () => {
             questWindow.querySelector(".quest__confirm").remove();
-            if (questWindow.classList.contains("active")) {
-                questWindow.style.opacity = "0";
-                setTimeout(() => {
-                    questWindow.classList.remove("active");
-                    sceneCounter = 0;
-                    dialogueCounter = 0;
-                    response = [];
-                    switchScene();
-                }, 400);
-            }
+            completeQuest();
             questWindow.classList.remove("confirm");
         });
 
