@@ -41,11 +41,17 @@ function switchScene() {
                             <img src="${currentDialogue.actionImage}" alt="action image">
                         </div>`
                     );
+                    setTimeout(() => {
+                        document.querySelector('.quest__action-img').style.opacity = "1";
+                    }, 10);
                 } else {
                     questWindow.setAttribute("istest", "false");
                     const questActionImg = document.querySelector(".quest__action-img");
                     if (questActionImg) {
-                        questActionImg.remove();
+                        questActionImg.style.opacity = "0";
+                        setTimeout(() => {
+                            questActionImg.remove();
+                        }, 400);
                     }
                 }
             }, 300);
