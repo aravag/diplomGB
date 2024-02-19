@@ -1,11 +1,13 @@
 :root {
     --dialogueMarginBottom: max(1.75rem, min(7dvh, 4rem));
     --dialogueMarginTop: 1.25rem;
-    --dialoguePaddingTop: 0.75rem;
+    --dialoguePaddingTop: 1.25rem;
     --dialoguePaddingBottom: 2rem;
-    --dialogueBorderTopBottom: 24;
+    --dialogueBorderBlock: 24;
     --dialogueBorderWidth: 1rem;
-    --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderTopBottom) * 2px + var(--dialogueBorderWidth) * 2);
+    --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderBlock) * 2px + var(--dialogueBorderWidth) * 2);
+    --storytellerPaddingBottom: 0.25rem;
+    --storytellerPaddingInline: 1rem;
 }
 
 @font-face {
@@ -23,8 +25,12 @@ html {
     font-size: 16px;
 }
 
+h2 {
+    font-size: 2.25rem;
+}
+
 .container,
-.quest__dialogue,
+.quest__text,
 .quest__btns,
 .quest__action-img {
     max-width: 960px;
@@ -34,7 +40,15 @@ html {
 .quest__controls,
 .quest.active,
 .quest__btns,
-.quest__controls-item {
+.quest__controls-item,
+.quest__character.active,
+.quest__confirm-btns,
+.quest__character-part.active,
+.quest__confirm,
+.quest__character-container,
+.quest__character-name,
+.quest__result-btns,
+.quest__result {
     display: flex;
     display: -webkit-box;
     display: -moz-box;
@@ -42,7 +56,9 @@ html {
     display: -webkit-flex;
 }
 
-.quest {
+.quest,
+.quest__character,
+.quest__character-part {
     display: none;
 }
 
@@ -55,7 +71,9 @@ html {
     object-fit: contain;
 }
 
-.quest {
+.quest,
+.quest__character-part,
+.quest__character-name {
     align-items: center;
     -webkit-box-align: center;
     -moz-box-align: center;
@@ -72,7 +90,12 @@ html {
 }
 
 .quest,
-.quest__btns {
+.quest__btns,
+.quest__character,
+.quest__character-part,
+.quest__confirm,
+.quest__character-name,
+.quest__result {
     flex-direction: column;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
@@ -88,107 +111,183 @@ html {
     -ms-flex-direction: row;
 }
 
+.quest {
+    justify-content: flex-end;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+.quest[istest="true"] .quest__btns {
+    justify-content: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.quest__confirm-btns,
+.quest__result-btns {
+    justify-content: space-around;
+    -webkit-box-pack: space-around;
+    -ms-flex-pack: space-around;
+    justify-content: space-around;
+}
+
+.quest__controls,
+.quest__btns,
+.quest__character-part,
+.quest__confirm,
+.quest__character-container,
+.quest__character-name,
+.quest__result {
+    gap: 1.25rem;
+}
+
 .quest__background-image {
     object-fit: cover;
 }
 
 .quest__background-image,
 .quest__background,
-.quest__dialogue,
+.quest__text-dialogue,
+.quest__text,
 .quest__btns,
-.quest__action-img img {
+.quest__action-img img,
+.quest__action-img:after,
+.quest.active:before,
+.quest__confirm-btns,
+.quest__confirm-btns-item img,
+.quest__character-container,
+.quest__character-item,
+.quest__character-input {
     width: 100%;
 }
 
 .quest__background-image,
 .quest__background,
-.quest__action-img img {
+.quest__action-img img,
+.quest__action-img:after,
+.quest.active:before,
+.quest__confirm-btns-item img {
     height: 100%;
 }
 
-.quest__background {
+.quest__action-img,
+.quest__text {
+    position: relative;
+}
+
+.quest__background,
+.quest__controls,
+.start-quest,
+.quest[istest="true"] .quest__btns,
+.quest__action-img:after,
+.quest.active:before,
+.quest__character,
+.quest__text-storyteller,
+.quest__result {
     position: absolute;
+}
+
+.quest,
+.quest__confirm {
+    position: fixed;
+}
+
+.quest__background {
     z-index: -2;
 }
 
 .quest__background,
-.quest {
+.quest,
+.quest__action-img:after {
     top: 0;
 }
 
 .quest__background,
-.quest {
+.quest,
+.quest__action-img:after {
     left: 0;
+}
+
+.quest__confirm,
+.start-quest,
+.quest__character,
+.quest__result {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .quest {
     height: 100vh;
     width: 100vw;
-    position: fixed;
     color: #ffffff;
-    justify-content: flex-end;
-    opacity: 0;
     transition: 0.3s opacity ease;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+}
+
+.quest,
+.container {
     font-family: 'Boozy';
 }
 
 .quest__controls {
-    gap: 1.25rem;
-    position: absolute;
     right: 1.25rem;
     top: 1.25rem;
     z-index: 1;
 }
 
-.quest__dialogue {
-    padding: var(--dialoguePaddingTop) var(--dialoguePaddingTop) var(--dialoguePaddingBottom);
+.quest__text-dialogue,
+.quest__confirm,
+.quest__character,
+.quest__character-input,
+.quest__result {
     font-size: 1.5rem;
-    margin: var(--dialogueMarginTop) auto var(--dialogueMarginBottom) auto;
-    text-align: center;
     border-width: var(--dialogueBorderWidth);
     border-style: solid;
     border-color: transparent;
     border-image-source: url(./images/dialogue.svg);
     -webkit-border-image-source: url(./images/dialogue.svg);
-    border-image-slice: var(--dialogueBorderTopBottom) 14 var(--dialogueBorderTopBottom) 16 fill;
-    -webkit-border-image-slice: var(--dialogueBorderTopBottom) 14 var(--dialogueBorderTopBottom) 16 fill;
+    border-image-slice: var(--dialogueBorderBlock) 14 var(--dialogueBorderBlock) 16 fill;
+    -webkit-border-image-slice: var(--dialogueBorderBlock) 14 var(--dialogueBorderBlock) 16 fill;
 }
 
-.start-quest__btn, 
-.quest__btns-item, 
-.quest__dialogue {
+.quest__text-dialogue {
+    padding: var(--dialoguePaddingTop) var(--dialoguePaddingTop) var(--dialoguePaddingBottom);
+    margin: var(--dialogueMarginTop) auto var(--dialogueMarginBottom) auto;
+}
+
+.start-quest__btn,
+.quest {
     text-shadow: 0 0 4px black;
 }
 
-.quest__controls-item,
 .quest__btns-item,
-.start-quest__btn {
-    cursor: pointer;
-}
-
-.quest__btns-item,
-.start-quest__btn {
+.start-quest__btn,
+.quest__character-begin,
+.quest__character-start,
+.quest__result-btns-item {
     padding: 0 1rem 0.375rem;
     font-size: 1.25rem;
-    border-width: 1rem;
+    border-width: 0.75rem;
     border-style: solid;
     border-color: transparent;
     border-image-source: url(./images/btn.svg);
     -webkit-border-image-source: url(./images/btn.svg);
-    border-image-slice: 20 fill;
-    -webkit-border-image-slice: 20 fill;
+    border-image-slice: 16 20 fill;
+    -webkit-border-image-slice: 16 20 fill;
 }
 
-.quest__btns {
-    gap: 1.25rem;
-}
-
-.start-quest {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.start-quest,
+.quest__text-dialogue,
+.quest__confirm,
+.quest__character,
+.quest__result {
     text-align: center;
 }
 
@@ -197,31 +296,44 @@ html {
     color: #ffffff;
 }
 
+.quest__controls-item,
+.quest__btns-item,
+.start-quest__btn,
+.quest__confirm-btns-item,
+.quest__character-begin,
+.quest__character-item,
+.quest__character-start,
+.quest__result-btns-item {
+    cursor: pointer;
+}
+
 .start-quest__btn,
 .quest__controls-item,
-.quest__btns-item {
+.quest__btns-item,
+.quest__character-begin,
+.quest__character-item,
+.quest__character-start,
+.quest__result-btns-item {
     transition: 0.3s transform ease;
 }
 
 .start-quest__btn:hover,
 .quest__controls-item:hover,
-.quest__btns-item:hover {
+.quest__btns-item:hover,
+.quest__character-begin:hover,
+.quest__character-item:hover,
+.quest__character-start:hover,
+.quest__result-btns-item:hover {
     transform: scale(1.05);
 }
 
 .quest[istest="true"] .quest__btns {
-    position: absolute;
-    justify-content: center;
     bottom: calc(var(--dialogueMarginBottom) / 2);
+    z-index: 1;
 }
 
 .quest__action-img:after {
     content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
     background: url(./images/maskImage.png);
     background-repeat: no-repeat;
     background-size: contain;
@@ -241,21 +353,83 @@ html {
     -webkit-mask-position: center;
 }
 
-.quest__action-img {
-    position: relative;
-}
-
-.quest.active[istest="true"]:before {
-    opacity: 1;
-}
-
 .quest.active:before {
     content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
     z-index: -1;
     background: #00000080;
     transition: 0.3s opacity ease;
+    backdrop-filter: blur(5px);
+}
+
+.quest,
+.quest.active:before {
     opacity: 0;
+}
+
+.quest.active[istest="true"]:before,
+.quest.active.confirm:before {
+    opacity: 1;
+}
+
+.quest.active.confirm:before {
+    z-index: 10;
+}
+
+.quest__confirm {
+    z-index: 11;
+    padding: 1rem 2rem;
+}
+
+.quest__confirm-btns-item {
+    width: 60px;
+    height: 60px;
+}
+
+.error {
+    filter: drop-shadow(0 0 10px red);
+    -webkit-filter: drop-shadow(0 0 10px red);
+}
+
+.quest__character,
+.quest__result {
+    padding: 1rem;
+    border-image-slice: 10 fill;
+    -webkit-border-image-slice: 10 fill;
+}
+.quest__confirm-btns {
+    margin-bottom: -60px;
+}
+
+.quest__character-begin,
+.quest__character-start,
+.quest__result-btns-item {
+    margin-bottom: -50px;
+}
+
+.quest__character-input {
+    outline: none;
+    padding: 0.5rem 0.75rem;
+    background: none;
+    font-family: 'Boozy';
+    color: #ffffff;
+    border-style: solid;
+}
+
+.quest__character-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.quest__text-storyteller {
+    left: 50%;
+    top: calc(var(--storytellerPaddingBottom) * -1);
+    transform: translateX(-50%);
+    font-size: 1.25rem;
+    border-image-source: url(./images/storyteller.svg);
+    -webkit-border-image-source: url(./images/storyteller.svg);
+    padding: 0 var(--storytellerPaddingInline) var(--storytellerPaddingBottom) ;
+    border-width: 0.75rem;
+    border-image-slice: 16 fill;
+    -webkit-border-image-slice: 16 fill;
+    border-style: solid;
+    border-color: transparent;
 }
