@@ -24,6 +24,8 @@ let charArr = [];
 
 function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
+        const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
+        const currentDialogue = currentScene.dialogues[dialogueCounter];
         if (document.querySelector(".quest__btns-item")) {
             document.querySelectorAll(".quest__btns-item").forEach((btn) => {
                 btn.style.opacity = "0";
@@ -48,8 +50,6 @@ function switchScene() {
                 }
             }, 300);
         }
-        const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
-        const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
         questDialogue.textContent = "";
         printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue.btns));
@@ -142,7 +142,7 @@ function addBtns(btns) {
         questBtnsContainer.append(btnElement);
         setTimeout(() => {
             btnElement.style.opacity = "1";
-        }, 0);
+        }, 10);
     });
 }
 
