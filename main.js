@@ -32,28 +32,7 @@ function switchScene() {
             });
             setTimeout(() => {
                 questBtnsContainer.innerHTML = "";
-                if (currentDialogue.isTestBtns) {
-                    questWindow.setAttribute("istest", "true");
-                    const questContainer = document.querySelector(".quest__btns");
-                    questContainer.insertAdjacentHTML(
-                        "beforebegin",
-                        `<div class="quest__action-img">
-                            <img src="${currentDialogue.actionImage}" alt="action image">
-                        </div>`
-                    );
-                    setTimeout(() => {
-                        document.querySelector('.quest__action-img').style.opacity = "1";
-                    }, 10);
-                } else {
-                    questWindow.setAttribute("istest", "false");
-                    const questActionImg = document.querySelector(".quest__action-img");
-                    if (questActionImg) {
-                        questActionImg.style.opacity = "0";
-                        setTimeout(() => {
-                            questActionImg.remove();
-                        }, 400);
-                    }
-                }
+                handleQuizPart(currentDialogue);
             }, 300);
         }
         questBackgroundImage.src = currentScene.background;
@@ -150,6 +129,31 @@ function addBtns(btns) {
             btnElement.style.opacity = "1";
         }, 10);
     });
+}
+
+function handleQuizPart(currentDialogue) {
+    if (currentDialogue.isTestBtns) {
+        questWindow.setAttribute("istest", "true");
+        const questContainer = document.querySelector(".quest__btns");
+        questContainer.insertAdjacentHTML(
+            "beforebegin",
+            `<div class="quest__action-img">
+                <img src="${currentDialogue.actionImage}" alt="action image">
+            </div>`
+        );
+        setTimeout(() => {
+            document.querySelector('.quest__action-img').style.opacity = "1";
+        }, 10);
+    } else {
+        questWindow.setAttribute("istest", "false");
+        const questActionImg = document.querySelector(".quest__action-img");
+        if (questActionImg) {
+            questActionImg.style.opacity = "0";
+            setTimeout(() => {
+                questActionImg.remove();
+            }, 400);
+        }
+    }
 }
 
 function handleCharacterPage(bool) {
