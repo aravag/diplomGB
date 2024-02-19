@@ -362,7 +362,9 @@ h2 {
 }
 
 .quest,
-.quest.active:before {
+.quest.active:before,
+.quest__text-dialogue span,
+.quest__btns-item {
     opacity: 0;
 }
 
@@ -432,4 +434,14 @@ h2 {
     -webkit-border-image-slice: 16 fill;
     border-style: solid;
     border-color: transparent;
+}
+
+@keyframes appear {
+    to {
+        opacity: 1;
+    }
+}
+
+.quest__btns-item {
+    animation: appear 0.3s forwards ease;
 }

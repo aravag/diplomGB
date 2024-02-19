@@ -20,14 +20,16 @@ let response = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
 let userName;
-let charArr;
+let charArr = [];
 
 function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
+        questBtnsContainer.innerHTML = "";
         const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
-        questDialogue.textContent = currentDialogue.dialogue;
+        questDialogue.textContent = '';
+        printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue.btns));
         if (currentDialogue.isTestBtns) {
             questWindow.setAttribute("istest", "true");
             const questContainer = document.querySelector(".quest__btns");
@@ -58,19 +60,6 @@ function switchScene() {
                 document.querySelector(".quest__text-storyteller").remove();
             }
         }
-        questBtnsContainer.innerHTML = "";
-        currentDialogue.btns.map((btn, index) => {
-            const btnElement = document.createElement("div");
-            btnElement.className = "quest__btns-item";
-            btnElement.textContent = btn;
-            btnElement.addEventListener("click", () => {
-                switchScene();
-                if (currentDialogue.isTestBtns) {
-                    response.push(index);
-                }
-            });
-            questBtnsContainer.append(btnElement);
-        });
         if (dialogueCounter < currentScene.dialogues.length - 1) {
             dialogueCounter++;
         } else {
@@ -115,6 +104,36 @@ function switchScene() {
             }
         });
     }
+}
+
+function printText(text, textContainer, callback) {
+    text = text.split("");
+    text.map((char, index) => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        textContainer.append(span);
+        setTimeout(() => {
+            span.style.opacity = "1";
+            if (index === text.length - 1) {
+                callback();
+            }
+        }, index * 30);
+    });
+}
+
+function addBtns(btns) {
+    btns.map((btn, index) => {
+        const btnElement = document.createElement("div");
+        btnElement.className = "quest__btns-item";
+        btnElement.textContent = btn;
+        btnElement.addEventListener("click", () => {
+            switchScene();
+            if (btns.isTestBtns) {
+                response.push(index);
+            }
+        });
+        questBtnsContainer.append(btnElement);
+    });
 }
 
 function handleCharacterPage(bool) {
