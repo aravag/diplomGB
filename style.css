@@ -309,7 +309,6 @@ h2 {
 
 .start-quest__btn,
 .quest__controls-item,
-.quest__btns-item,
 .quest__character-begin,
 .quest__character-item,
 .quest__character-start,
@@ -435,13 +434,6 @@ h2 {
     border-style: solid;
     border-color: transparent;
 }
-
-@keyframes appear {
-    to {
-        opacity: 1;
-    }
-}
-
 .quest__btns-item {
-    animation: appear 0.3s forwards ease;
+    transition: 0.3s opacity ease, 0.3s transform ease;
 }

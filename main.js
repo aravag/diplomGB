@@ -24,28 +24,35 @@ let charArr = [];
 
 function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
-        questBtnsContainer.innerHTML = "";
+        if (document.querySelector(".quest__btns-item")) {
+            document.querySelectorAll(".quest__btns-item").forEach((btn) => {
+                btn.style.opacity = "0";
+            });
+            setTimeout(() => {
+                questBtnsContainer.innerHTML = "";
+                if (currentDialogue.isTestBtns) {
+                    questWindow.setAttribute("istest", "true");
+                    const questContainer = document.querySelector(".quest__btns");
+                    questContainer.insertAdjacentHTML(
+                        "beforebegin",
+                        `<div class="quest__action-img">
+                            <img src="${currentDialogue.actionImage}" alt="action image">
+                        </div>`
+                    );
+                } else {
+                    questWindow.setAttribute("istest", "false");
+                    const questActionImg = document.querySelector(".quest__action-img");
+                    if (questActionImg) {
+                        questActionImg.remove();
+                    }
+                }
+            }, 300);
+        }
         const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         questBackgroundImage.src = currentScene.background;
-        questDialogue.textContent = '';
+        questDialogue.textContent = "";
         printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue.btns));
-        if (currentDialogue.isTestBtns) {
-            questWindow.setAttribute("istest", "true");
-            const questContainer = document.querySelector(".quest__btns");
-            questContainer.insertAdjacentHTML(
-                "beforebegin",
-                `<div class="quest__action-img">
-                    <img src="${currentDialogue.actionImage}" alt="action image">
-                </div>`
-            );
-        } else {
-            questWindow.setAttribute("istest", "false");
-            const questActionImg = document.querySelector(".quest__action-img");
-            if (questActionImg) {
-                questActionImg.remove();
-            }
-        }
         if (currentDialogue.storyteller) {
             if (!document.querySelector(".quest__text-storyteller")) {
                 const storytellerElem = document.createElement("div");
@@ -133,6 +140,9 @@ function addBtns(btns) {
             }
         });
         questBtnsContainer.append(btnElement);
+        setTimeout(() => {
+            btnElement.style.opacity = "1";
+        }, 0);
     });
 }
 
