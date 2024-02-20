@@ -1,5 +1,6 @@
 import { sceneConfigurations } from "./components/sceneConfigurations.js";
 import { charBoy, charGirl } from "./components/imagePreloader.js";
+import * as resultResponse from "./resultResponse.json";
 
 const startBtn = document.querySelector(".start-quest__btn");
 const closeQuest = document.querySelector(".quest__controls-close");
@@ -15,7 +16,7 @@ const questBackgroundImage = questBackground.querySelector(".quest__background-i
 const questBtnsContainer = questWindow.querySelector(".quest__btns");
 const questTextContainer = questWindow.querySelector(".quest__text");
 const questDialogue = questTextContainer.querySelector(".quest__text-dialogue");
-const resultResponse = [0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 2, 2, 1, 2];
+// const resultResponse = [0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 2, 2, 1, 2];
 let response = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
@@ -36,8 +37,8 @@ function switchScene() {
             questContainer.insertAdjacentHTML(
                 "beforebegin",
                 `<div class="quest__action-img">
-                    <img src="${currentDialogue.actionImage}" alt="action image">
-                </div>`
+        <img src="${currentDialogue.actionImage}" alt="action image">
+    </div>`
             );
         } else {
             questWindow.setAttribute("istest", "false");
@@ -77,19 +78,19 @@ function switchScene() {
         questWindow.insertAdjacentHTML(
             "beforeend",
             `<div class="quest__result">
-                <h2 class="quest__result-title">${(correctAnswers / resultResponse.length) * 100 < 50 ? `${userName}, попробуй еще раз.` : `Молодец, ${userName}!`}</h2>
-                <p class="quest__result-finals">
-                    Количество правильных ответов: ${correctAnswers} из ${resultResponse.length}.
-                </p>
-                <div class="quest__result-btns">
-                    <div class="quest__result-btns-item" id="result-btn__startover">
-                        Начать сначала
-                    </div>
-                    <div class="quest__result-btns-item" id="result-btn__end">
-                        Завершить
-                    </div>
-                </div>
-            </div>`
+        <h2 class="quest__result-title">${(correctAnswers / resultResponse.length) * 100 < 50 ? `${userName}, попробуй еще раз.` : `Молодец, ${userName}!`}</h2>
+        <p class="quest__result-finals">
+            Количество правильных ответов: ${correctAnswers} из ${resultResponse.length}.
+        </p>
+        <div class="quest__result-btns">
+            <div class="quest__result-btns-item" id="result-btn__startover">
+                Начать сначала
+            </div>
+            <div class="quest__result-btns-item" id="result-btn__end">
+                Завершить
+            </div>
+        </div>
+    </div>`
         );
         const questResultBtns = questWindow.querySelector(".quest__result-btns");
         questResultBtns.addEventListener("click", (event) => {
@@ -253,21 +254,14 @@ function init() {
 
 init();
 
-// async function getResponse(data) {
-//     try {
-//         const response = await fetch("https://example.com/profile", {
-//             method: "POST", // or 'PUT'
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(data),
-//         });
+async function postJSON() {
+    try {
+        const response = await fetch("resultResponse.json");
+        const result = await response.json();
+        console.log("Success:", result);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
-//         const result = await response.json();
-//         console.log("Success:", result);
-//     } catch (error) {
-//         console.error("Error:", error);
-//     }
-// }
-
-// getResponse();
+postJSON();
