@@ -15,12 +15,13 @@ const questBackgroundImage = questBackground.querySelector(".quest__background-i
 const questBtnsContainer = questWindow.querySelector(".quest__btns");
 const questTextContainer = questWindow.querySelector(".quest__text");
 const questDialogue = questTextContainer.querySelector(".quest__text-dialogue");
-const resultResponse = [0, 1, 0, 1, 2, 1, 1, 1, 0, 2, 2, 2, 1, 2];
-let response = [];
 let sceneCounter = 0;
 let dialogueCounter = 0;
+let resultResponse = [];
+let response = [];
 let userName;
 let charArr = [];
+let printTimeout;
 
 function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
@@ -37,7 +38,7 @@ function switchScene() {
         }
         questBackgroundImage.src = currentScene.background;
         questDialogue.textContent = "";
-        printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue.btns));
+        printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue));
         if (currentDialogue.storyteller) {
             if (!document.querySelector(".quest__text-storyteller")) {
                 const storytellerElem = document.createElement("div");
@@ -59,41 +60,44 @@ function switchScene() {
             sceneCounter++;
         }
     } else {
-        const correctAnswers = response.reduce((count, userAnswer, index) => {
-            const correctAnswer = resultResponse[index];
-            return userAnswer === correctAnswer ? count + 1 : count;
-        }, 0);
-        questBtnsContainer.innerHTML = "";
-        questTextContainer.style.display = "none";
-        questBackgroundImage.src = "./images/bg1.png";
-        questWindow.insertAdjacentHTML(
-            "beforeend",
-            `<div class="quest__result">
-                <h2 class="quest__result-title">${(correctAnswers / resultResponse.length) * 100 < 50 ? `${userName}, попробуй еще раз.` : `Молодец, ${userName}!`}</h2>
-                <p class="quest__result-finals">
-                    Количество правильных ответов: ${correctAnswers} из ${resultResponse.length}.
-                </p>
-                <div class="quest__result-btns">
-                    <div class="quest__result-btns-item" id="result-btn__startover">
-                        Начать сначала
+        fetchAnswers(() => {
+            const correctAnswers = response.reduce((count, userAnswer, index) => {
+                const correctAnswer = resultResponse[index];
+                return userAnswer === correctAnswer ? count + 1 : count;
+            }, 0);
+            questBtnsContainer.innerHTML = "";
+            questTextContainer.style.display = "none";
+            questBackgroundImage.src = "./images/bg1.png";
+            questWindow.insertAdjacentHTML(
+                "beforeend",
+                `<div class="quest__result">
+                    <h2 class="quest__result-title">${(correctAnswers / resultResponse.length) * 100 < 50 ? `${userName}, попробуй еще раз.` : `Молодец, ${userName}!`}</h2>
+                    <p class="quest__result-finals">
+                        Количество правильных ответов: ${correctAnswers} из ${resultResponse.length}.
+                    </p>
+                    <div class="quest__result-btns">
+                        <div class="quest__result-btns-item" id="result-btn__startover">
+                            Начать сначала
+                        </div>
+                        <div class="quest__result-btns-item" id="result-btn__end">
+                            Завершить
+                        </div>
                     </div>
-                    <div class="quest__result-btns-item" id="result-btn__end">
-                        Завершить
-                    </div>
-                </div>
-            </div>`
-        );
-        const questResultBtns = questWindow.querySelector(".quest__result-btns");
-        questResultBtns.addEventListener("click", (event) => {
-            if (event.target.closest(".quest__result-btns-item")) {
-                if (event.target.closest("#result-btn__startover")) {
-                    resetQuest();
-                } else if (event.target.closest("#result-btn__end")) {
-                    completeQuest();
+                </div>`
+            );
+            const questResultBtns = questWindow.querySelector(".quest__result-btns");
+            questResultBtns.addEventListener("click", (event) => {
+                if (event.target.closest(".quest__result-btns-item")) {
+                    if (event.target.closest("#result-btn__startover")) {
+                        resetQuest();
+                        switchScene();
+                    } else if (event.target.closest("#result-btn__end")) {
+                        completeQuest();
+                    }
+                    questWindow.querySelector(".quest__result").remove();
+                    questTextContainer.style.display = "";
                 }
-                questWindow.querySelector(".quest__result").remove();
-                questTextContainer.style.display = "";
-            }
+            });
         });
     }
 }
@@ -104,7 +108,7 @@ function printText(text, textContainer, callback) {
         const span = document.createElement("span");
         span.textContent = char;
         textContainer.append(span);
-        setTimeout(() => {
+        printTimeout = setTimeout(() => {
             span.style.opacity = "1";
             if (index === text.length - 1) {
                 callback();
@@ -113,14 +117,14 @@ function printText(text, textContainer, callback) {
     });
 }
 
-function addBtns(btns) {
-    btns.map((btn, index) => {
+function addBtns(currentDialogue) {
+    currentDialogue.btns.map((btn, index) => {
         const btnElement = document.createElement("div");
         btnElement.className = "quest__btns-item";
         btnElement.textContent = btn;
         btnElement.addEventListener("click", () => {
             switchScene();
-            if (btns.isTestBtns) {
+            if (currentDialogue.isTestBtns) {
                 response.push(index);
             }
         });
@@ -142,7 +146,7 @@ function handleQuizPart(currentDialogue) {
             </div>`
         );
         setTimeout(() => {
-            document.querySelector('.quest__action-img').style.opacity = "1";
+            document.querySelector(".quest__action-img").style.opacity = "1";
         }, 10);
     } else {
         questWindow.setAttribute("istest", "false");
@@ -196,7 +200,20 @@ function resetQuest() {
     sceneCounter = 0;
     dialogueCounter = 0;
     response = [];
-    switchScene();
+    clearTimeout(printTimeout);
+}
+
+async function fetchAnswers(callback) {
+    try {
+        const answer = await fetch("answers.json");
+        if (!answer.ok) {
+            throw new Error("Не удалось получить ответы");
+        }
+        resultResponse = await answer.json();
+        callback();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function init() {
