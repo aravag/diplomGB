@@ -223,7 +223,6 @@ h2 {
     height: 100vh;
     width: 100vw;
     color: #ffffff;
-    transition: 0.3s opacity ease;
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
@@ -309,12 +308,33 @@ h2 {
 
 .start-quest__btn,
 .quest__controls-item,
-.quest__btns-item,
 .quest__character-begin,
 .quest__character-item,
 .quest__character-start,
 .quest__result-btns-item {
     transition: 0.3s transform ease;
+}
+
+.quest,
+.quest__action-img,
+.quest.active:before {
+    transition: 0.3s opacity ease;
+}
+.quest__btns-item {
+    transition: 0.3s opacity ease, 0.3s transform ease;
+}
+
+.quest,
+.quest.active:before,
+.quest__text-dialogue span,
+.quest__btns-item,
+.quest__action-img {
+    opacity: 0;
+}
+
+.quest.active[istest="true"]:before,
+.quest.active.confirm:before {
+    opacity: 1;
 }
 
 .start-quest__btn:hover,
@@ -357,20 +377,7 @@ h2 {
     content: '';
     z-index: -1;
     background: #00000080;
-    transition: 0.3s opacity ease;
     backdrop-filter: blur(5px);
-}
-
-.quest,
-.quest.active:before,
-.quest__text-dialogue span,
-.quest__btns-item {
-    opacity: 0;
-}
-
-.quest.active[istest="true"]:before,
-.quest.active.confirm:before {
-    opacity: 1;
 }
 
 .quest.active.confirm:before {
@@ -434,14 +441,4 @@ h2 {
     -webkit-border-image-slice: 16 fill;
     border-style: solid;
     border-color: transparent;
-}
-
-@keyframes appear {
-    to {
-        opacity: 1;
-    }
-}
-
-.quest__btns-item {
-    animation: appear 0.3s forwards ease;
 }
