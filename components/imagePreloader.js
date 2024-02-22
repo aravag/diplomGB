@@ -15,9 +15,9 @@ export const imagePaths = [
     "./images/14.png",
     "./images/bg1.png",
     "./images/bg2.png",
-    "./images/storyteller1.svg",
-    "./images/storyteller2.svg",
 ];
 export const charBoy = ["./images/charBoy1.png", "./images/charBoy1.png"];
 
 export const charGirl = ["./images/charGirl1.png", "./images/charGirl1.png"];
+
+export const storytellers = ["./images/storyteller1.png", "./images/storyteller2.png"];

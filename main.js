@@ -3,6 +3,7 @@ import { charBoy, charGirl } from "./components/imagePreloader.js";
 
 const startBtn = document.querySelector(".start-quest__btn");
 const closeQuest = document.querySelector(".quest__controls-close");
+const questInfo = document.querySelector(".quest__controls-info");
 const questWindow = document.querySelector(".quest");
 const questCharacterPage = questWindow.querySelector(".quest__character");
 const startQuiz = questCharacterPage.querySelector(".quest__character-start");
@@ -12,9 +13,11 @@ const chooseCharacterBtns = document.querySelectorAll(".quest__character-item");
 const questCharacterInput = questCharacterPage.querySelector(".quest__character-input");
 const questBackground = questWindow.querySelector(".quest__background");
 const questBackgroundImage = questBackground.querySelector(".quest__background-image");
+const navContainer = questWindow.querySelector(".quest__nav-container");
 const questBtnsContainer = questWindow.querySelector(".quest__btns");
 const questTextContainer = questWindow.querySelector(".quest__text");
 const questDialogue = questTextContainer.querySelector(".quest__text-dialogue");
+const arrows = questWindow.querySelectorAll(".arrow");
 let sceneCounter = 0;
 let dialogueCounter = 0;
 let resultResponse = [];
@@ -40,17 +43,47 @@ function switchScene() {
         questDialogue.textContent = "";
         printText(currentDialogue.dialogue[0], questDialogue, () => addBtns(currentDialogue));
         if (currentDialogue.storyteller) {
-            if (!document.querySelector(".quest__text-storyteller")) {
+            if (!document.querySelector(".quest__text-storyteller") && !document.querySelector(".quest__storyteller-image")) {
                 const storytellerElem = document.createElement("div");
                 storytellerElem.className = "quest__text-storyteller";
-                storytellerElem.textContent = currentDialogue.storyteller;
+                storytellerElem.textContent = currentDialogue.storyteller.name;
                 questTextContainer.prepend(storytellerElem);
+
+                const storytellerImage = document.createElement("img");
+                storytellerImage.className = "quest__storyteller-image";
+                storytellerImage.src = currentDialogue.storyteller.image;
+                questWindow.append(storytellerImage);
+                setTimeout(() => {
+                    document.querySelector(".quest__storyteller-image").style.opacity = "1";
+                }, 10);
             } else {
-                document.querySelector(".quest__text-storyteller").textContent = currentDialogue.storyteller;
+                document.querySelector(".quest__text-storyteller").textContent = currentDialogue.storyteller.name;
             }
         } else {
-            if (document.querySelector(".quest__text-storyteller")) {
+            if (document.querySelector(".quest__text-storyteller") && document.querySelector(".quest__storyteller-image")) {
                 document.querySelector(".quest__text-storyteller").remove();
+                document.querySelector(".quest__storyteller-image").style.opacity = "0";
+                setTimeout(() => {
+                    document.querySelector(".quest__storyteller-image").remove();
+                }, 400);
+            }
+        }
+        if (currentDialogue.char) {
+            if (!document.querySelector(".quest__char-image")) {
+                const charImage = document.createElement("img");
+                charImage.className = "quest__char-image";
+                charImage.src = currentDialogue.char.image;
+                questWindow.append(charImage);
+                setTimeout(() => {
+                    document.querySelector(".quest__char-image").style.opacity = "1";
+                }, 10);
+            }
+        } else {
+            if (document.querySelector(".quest__char-image")) {
+                document.querySelector(".quest__char-image").style.opacity = "0";
+                setTimeout(() => {
+                    document.querySelector(".quest__char-image").remove();
+                }, 400);
             }
         }
         if (dialogueCounter < currentScene.dialogues.length - 1) {
@@ -133,13 +166,13 @@ function addBtns(currentDialogue) {
             btnElement.style.opacity = "1";
         }, 10);
     });
+    handleArrowBtns();
 }
 
 function handleQuizPart(currentDialogue) {
     if (currentDialogue.isTestBtns) {
         questWindow.setAttribute("istest", "true");
-        const questContainer = document.querySelector(".quest__btns");
-        questContainer.insertAdjacentHTML(
+        navContainer.insertAdjacentHTML(
             "beforebegin",
             `<div class="quest__action-img">
                 <img src="${currentDialogue.actionImage}" alt="action image">
@@ -216,6 +249,51 @@ async function fetchAnswers(callback) {
     }
 }
 
+function handleArrowBtns() {
+    if (questBtnsContainer.clientHeight < questBtnsContainer.scrollHeight) {
+        if (questBtnsContainer.scrollTop <= 0) {
+            arrows[0].style.opacity = "";
+            arrows[1].style.opacity = "1";
+        } else if (questBtnsContainer.scrollTop > 0 && questBtnsContainer.scrollTop + questBtnsContainer.clientHeight < questBtnsContainer.scrollHeight) {
+            arrows[0].style.opacity = "1";
+            arrows[1].style.opacity = "1";
+        } else if (questBtnsContainer.scrollTop + questBtnsContainer.clientHeight >= questBtnsContainer.scrollHeight) {
+            arrows[0].style.opacity = "1";
+            arrows[1].style.opacity = "";
+        }
+    } else {
+        arrows[0].style.opacity = "";
+        arrows[1].style.opacity = "";
+    }
+}
+
+function handlePopUp(container, button, className) {
+    if (questWindow.querySelector(container) && !event.target.closest(container) && !event.target.closest(button)) {
+        questWindow.querySelector(container).remove();
+        questWindow.classList.remove(className);
+    }
+}
+
+function handleConfirmButtons(container, className) {
+    if (questWindow.classList.contains(className) && questWindow.querySelector(container)) {
+        questWindow.classList.remove(className);
+        questWindow.querySelector(container).remove();
+    }
+}
+
+function checkAndStartQuiz() {
+    if (questCharacterInput.value == "") {
+        questCharacterInput.classList.add("error");
+    } else {
+        if (questCharacterInput.classList.contains("error")) {
+            questCharacterInput.classList.remove("error");
+        }
+        handleCharacterPage(false);
+        userName = questCharacterInput.value;
+        switchScene();
+    }
+}
+
 function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
@@ -238,54 +316,80 @@ function init() {
     );
 
     startQuiz.addEventListener("click", () => {
-        if (questCharacterInput.value == "") {
-            questCharacterInput.classList.add("error");
-        } else {
-            if (questCharacterInput.classList.contains("error")) {
-                questCharacterInput.classList.remove("error");
-            }
-            handleCharacterPage(false);
-            userName = questCharacterInput.value;
-            switchScene();
-        }
+        checkAndStartQuiz();
+    });
+
+    questCharacterInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") checkAndStartQuiz();
     });
 
     closeQuest.addEventListener("click", () => {
-        questWindow.insertAdjacentHTML(
-            "beforeend",
-            `<div class="quest__confirm">
-                <h3 class="quest__confirm-title">Точно хочешь уйти? <br> Прогресс сбросится...</h3>
-                <div class="quest__confirm-btns">
-                    <div class="quest__confirm-btns-item" id="confirm__yes">
-                        <img src="./images/yes.svg" alt="yes">
+        if (!questWindow.querySelector(".quest__confirm")) {
+            questWindow.insertAdjacentHTML(
+                "beforeend",
+                `<div class="quest__confirm">
+                    <h3 class="quest__confirm-title">Точно хочешь уйти? <br> Прогресс сбросится...</h3>
+                    <div class="quest__confirm-btns">
+                        <div class="quest__confirm-btns-item" id="confirm__yes">
+                            <img src="./images/yes.svg" alt="yes">
+                        </div>
+                        <div class="quest__confirm-btns-item" id="confirm__no">
+                            <img src="./images/no.svg" alt="no">
+                        </div>
                     </div>
-                    <div class="quest__confirm-btns-item" id="confirm__no">
-                        <img src="./images/no.svg" alt="no">
+                </div>`
+            );
+            if (!questWindow.classList.contains("confirm")) {
+                questWindow.classList.add("confirm");
+            }
+
+            document.getElementById("confirm__yes").addEventListener("click", () => {
+                handleConfirmButtons(".quest__confirm", "confirm");
+                completeQuest();
+            });
+
+            document.getElementById("confirm__no").addEventListener("click", () => handleConfirmButtons(".quest__confirm", "confirm"));
+
+            questWindow.addEventListener("click", (event) => handlePopUp(".quest__confirm", ".quest__controls-close", "confirm"));
+        }
+    });
+
+    questInfo.addEventListener("click", () => {
+        if (!questWindow.classList.contains("info")) {
+            questWindow.classList.add("info");
+        }
+        if (!questWindow.querySelector(".quest__info")) {
+            questWindow.insertAdjacentHTML(
+                "beforeend",
+                `<div class="quest__info">
+                    <h2 class="quest__info-title">Some Title</h2>
+                    <p class="quest__info-desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, deserunt? Inventore exercitationem laboriosam asperiores quidem. Dolore, repellendus quibusdam quam, at quia voluptatem optio mollitia rem error dolor, beatae soluta illum?
+                        Fugiat unde mollitia quibusdam nemo ipsam esse cumque vitae facilis, iure sapiente nisi, aliquam incidunt pariatur aliquid, quisquam fuga odit quam dignissimos ullam distinctio? Vero quaerat amet ratione asperiores ullam?
+                        Illo ad maxime non nesciunt!</p>
+                    <div class="quest__info-close">
+                        <img src="./images/close.svg" alt="no">
                     </div>
-                </div>
-            </div>`
-        );
+                </div>`
+            );
 
-        questWindow.classList.add("confirm");
+            questWindow.querySelector(".quest__info-close").addEventListener("click", () => handleConfirmButtons(".quest__info", "info"));
 
-        document.getElementById("confirm__yes").addEventListener("click", () => {
-            questWindow.querySelector(".quest__confirm").remove();
-            completeQuest();
-            questWindow.classList.remove("confirm");
-        });
+            questWindow.addEventListener("click", (event) => handlePopUp(".quest__info", ".quest__controls-info", "info"));
+        }
+    });
 
-        document.getElementById("confirm__no").addEventListener("click", () => {
-            questWindow.querySelector(".quest__confirm").remove();
-            questWindow.classList.remove("confirm");
-        });
-
-        questWindow.addEventListener("click", (event) => {
-            if (questWindow.querySelector(".quest__confirm") && !event.target.closest(".quest__confirm") && !event.target.closest(".quest__controls-close")) {
-                questWindow.querySelector(".quest__confirm").remove();
-                questWindow.classList.remove("confirm");
+    arrows.forEach((element) => {
+        element.addEventListener("click", () => {
+            if (element === arrows[0]) {
+                questBtnsContainer.scrollTop -= element.clientHeight;
+            } else {
+                questBtnsContainer.scrollTop += element.clientHeight;
             }
         });
     });
+
+    questBtnsContainer.addEventListener("scroll", handleArrowBtns);
+    window.addEventListener("resize", handleArrowBtns);
 }
 
 init();

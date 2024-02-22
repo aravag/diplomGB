@@ -1,6 +1,6 @@
 :root {
     --dialogueMarginBottom: max(1.75rem, min(7dvh, 4rem));
-    --dialogueMarginTop: 1.25rem;
+    --dialogueMarginTop: 0px;
     --dialoguePaddingTop: 1.25rem;
     --dialoguePaddingBottom: 2rem;
     --dialogueBorderBlock: 24;
@@ -30,11 +30,22 @@ h2 {
 }
 
 .container,
-.quest__text,
-.quest__btns,
 .quest__action-img {
     max-width: 960px;
     margin: 0 auto;
+}
+
+.quest__text,
+.quest__nav-container {
+    max-width: 1000px;
+}
+
+.quest__text {
+    padding: 0 1.25rem;
+}
+
+.quest__btns {
+    padding: 20px;
 }
 
 .quest__controls,
@@ -45,6 +56,8 @@ h2 {
 .quest__confirm-btns,
 .quest__character-part.active,
 .quest__confirm,
+.quest__info,
+.quest__info-close,
 .quest__character-container,
 .quest__character-name,
 .quest__result-btns,
@@ -58,13 +71,15 @@ h2 {
 
 .quest,
 .quest__character,
-.quest__character-part {
+.quest__character-part,
+.quest__btns::-webkit-scrollbar {
     display: none;
 }
 
 .quest__action-img {
     width: 80vw;
     height: calc(100% - var(--dialogueHeight));
+    margin-bottom: 10px;
 }
 
 .quest__action-img img {
@@ -94,6 +109,7 @@ h2 {
 .quest__character,
 .quest__character-part,
 .quest__confirm,
+.quest__info,
 .quest__character-name,
 .quest__result {
     flex-direction: column;
@@ -137,6 +153,7 @@ h2 {
 .quest__btns,
 .quest__character-part,
 .quest__confirm,
+.quest__info,
 .quest__character-container,
 .quest__character-name,
 .quest__result {
@@ -159,7 +176,8 @@ h2 {
 .quest__confirm-btns-item img,
 .quest__character-container,
 .quest__character-item,
-.quest__character-input {
+.quest__character-input,
+.quest__nav-container {
     width: 100%;
 }
 
@@ -168,29 +186,36 @@ h2 {
 .quest__action-img img,
 .quest__action-img:after,
 .quest.active:before,
-.quest__confirm-btns-item img {
+.quest__confirm-btns-item img,
+.quest__btns {
     height: 100%;
 }
 
 .quest__action-img,
-.quest__text {
+.quest__text,
+.quest__nav-container {
     position: relative;
 }
 
 .quest__background,
 .quest__controls,
 .start-quest,
-.quest[istest="true"] .quest__btns,
 .quest__action-img:after,
 .quest.active:before,
 .quest__character,
 .quest__text-storyteller,
-.quest__result {
+.quest__result,
+.quest__info-close,
+.arrow,
+.quest__storyteller-image,
+.quest__char-image  {
     position: absolute;
 }
 
 .quest,
-.quest__confirm {
+.quest[istest="true"] .quest__btns,
+.quest__confirm,
+.quest__info {
     position: fixed;
 }
 
@@ -200,17 +225,34 @@ h2 {
 
 .quest__background,
 .quest,
-.quest__action-img:after {
+.quest__action-img:after,
+.arrow.arrow__up {
     top: 0;
+}
+
+.arrow.arrow-down,
+.quest[istest="true"] .quest__btns {
+    bottom: 0;
 }
 
 .quest__background,
 .quest,
-.quest__action-img:after {
+.quest__action-img:after,
+.quest[istest="true"] .quest__btns {
     left: 0;
 }
 
+.arrow {
+    right: 0;
+}
+
+.quest__info-close {
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
 .quest__confirm,
+.quest__info,
 .start-quest,
 .quest__character,
 .quest__result {
@@ -243,6 +285,7 @@ h2 {
 
 .quest__text-dialogue,
 .quest__confirm,
+.quest__info,
 .quest__character,
 .quest__character-input,
 .quest__result {
@@ -286,7 +329,8 @@ h2 {
 .quest__text-dialogue,
 .quest__confirm,
 .quest__character,
-.quest__result {
+.quest__result,
+.quest__info {
     text-align: center;
 }
 
@@ -302,7 +346,9 @@ h2 {
 .quest__character-begin,
 .quest__character-item,
 .quest__character-start,
-.quest__result-btns-item {
+.quest__result-btns-item,
+.quest__info-close,
+.arrow {
     cursor: pointer;
 }
 
@@ -317,7 +363,10 @@ h2 {
 
 .quest,
 .quest__action-img,
-.quest.active:before {
+.quest.active:before,
+.arrow,
+.quest__storyteller-image,
+.quest__char-image {
     transition: 0.3s opacity ease;
 }
 .quest__btns-item {
@@ -328,12 +377,16 @@ h2 {
 .quest.active:before,
 .quest__text-dialogue span,
 .quest__btns-item,
-.quest__action-img {
+.quest__action-img,
+.arrow,
+.quest__storyteller-image,
+.quest__char-image {
     opacity: 0;
 }
 
 .quest.active[istest="true"]:before,
-.quest.active.confirm:before {
+.quest.active.confirm:before,
+.quest.active.info:before {
     opacity: 1;
 }
 
@@ -348,7 +401,7 @@ h2 {
 }
 
 .quest[istest="true"] .quest__btns {
-    bottom: calc(var(--dialogueMarginBottom) / 2);
+    height: unset;
     z-index: 1;
 }
 
@@ -380,11 +433,13 @@ h2 {
     backdrop-filter: blur(5px);
 }
 
-.quest.active.confirm:before {
+.quest.active.confirm:before,
+.quest.active.info:before {
     z-index: 10;
 }
 
-.quest__confirm {
+.quest__confirm,
+.quest__info {
     z-index: 11;
     padding: 1rem 2rem;
 }
@@ -430,7 +485,7 @@ h2 {
 
 .quest__text-storyteller {
     left: 50%;
-    top: calc(var(--storytellerPaddingBottom) * -1);
+    top: calc(var(--storytellerPaddingBottom) * -5);
     transform: translateX(-50%);
     font-size: 1.25rem;
     border-image-source: url(./images/storyteller.svg);
@@ -441,4 +496,28 @@ h2 {
     -webkit-border-image-slice: 16 fill;
     border-style: solid;
     border-color: transparent;
+}
+
+.quest__btns {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-padding: 20px;
+}
+
+.quest__btns-item {
+    scroll-snap-align: start;
+}
+
+.arrow {
+    --arrowSize: 1.25rem;
+    width: var(--arrowSize);
+    height: var(--arrowSize);
+    background: black;
+}
+
+.quest__nav-container {
+    overflow: hidden;
 }
