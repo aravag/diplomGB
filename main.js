@@ -233,6 +233,13 @@ function resetQuest() {
     sceneCounter = 0;
     dialogueCounter = 0;
     response = [];
+    if (document.querySelector(".quest__text-storyteller") && document.querySelector(".quest__storyteller-image")) {
+        document.querySelector(".quest__text-storyteller").remove();
+        document.querySelector(".quest__storyteller-image").remove();
+    }
+    if (document.querySelector(".quest__char-image")) {
+        document.querySelector(".quest__char-image").remove();
+    }
     clearTimeout(printTimeout);
 }
 
