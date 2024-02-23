@@ -5,13 +5,16 @@
     --dialoguePaddingBottom: 2rem;
     --dialogueBorderBlock: 24;
     --dialogueBorderWidth: 1rem;
-    --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderBlock) * 2px + var(--dialogueBorderWidth) * 2);
+    --dialogueHeight: calc(
+        var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderBlock) * 2px + var(--dialogueBorderWidth) * 2
+    );
     --storytellerPaddingBottom: 0.25rem;
     --storytellerPaddingInline: 1rem;
+    --char-height: max(calc(100dvw / 3), 86dvh);
 }
 
 @font-face {
-    font-family: 'Boozy';
+    font-family: "Boozy";
     src: url(./components/boozy.ttf);
 }
 
@@ -208,7 +211,7 @@ h2 {
 .quest__info-close,
 .arrow,
 .quest__storyteller-image,
-.quest__char-image  {
+.quest__char-image {
     position: absolute;
 }
 
@@ -274,7 +277,7 @@ h2 {
 
 .quest,
 .container {
-    font-family: 'Boozy';
+    font-family: "Boozy";
 }
 
 .quest__controls {
@@ -369,6 +372,7 @@ h2 {
 .quest__char-image {
     transition: 0.3s opacity ease;
 }
+
 .quest__btns-item {
     transition: 0.3s opacity ease, 0.3s transform ease;
 }
@@ -406,7 +410,7 @@ h2 {
 }
 
 .quest__action-img:after {
-    content: '';
+    content: "";
     background: url(./images/maskImage.png);
     background-repeat: no-repeat;
     background-size: contain;
@@ -427,7 +431,7 @@ h2 {
 }
 
 .quest.active:before {
-    content: '';
+    content: "";
     z-index: -1;
     background: #00000080;
     backdrop-filter: blur(5px);
@@ -460,6 +464,7 @@ h2 {
     border-image-slice: 10 fill;
     -webkit-border-image-slice: 10 fill;
 }
+
 .quest__confirm-btns {
     margin-bottom: -60px;
 }
@@ -474,7 +479,7 @@ h2 {
     outline: none;
     padding: 0.5rem 0.75rem;
     background: none;
-    font-family: 'Boozy';
+    font-family: "Boozy";
     color: #ffffff;
     border-style: solid;
 }
@@ -490,7 +495,7 @@ h2 {
     font-size: 1.25rem;
     border-image-source: url(./images/storyteller.svg);
     -webkit-border-image-source: url(./images/storyteller.svg);
-    padding: 0 var(--storytellerPaddingInline) var(--storytellerPaddingBottom) ;
+    padding: 0 var(--storytellerPaddingInline) var(--storytellerPaddingBottom);
     border-width: 0.75rem;
     border-image-slice: 16 fill;
     -webkit-border-image-slice: 16 fill;
@@ -520,4 +525,23 @@ h2 {
 
 .quest__nav-container {
     overflow: hidden;
+}
+
+.quest__storyteller-image,
+.quest__char-image {
+    pointer-events: none;
+}
+
+.quest__storyteller-image {
+    bottom: calc(0px - var(--char-height) + 86dvh);
+    left: 3%;
+    height: var(--char-height);
+    z-index: -1;
+}
+
+.quest__char-image {
+    bottom: calc(0px - var(--char-height) + 86dvh);
+    right: 3%;
+    height: var(--char-height);
+    z-index: -1;
 }

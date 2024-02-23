@@ -5,8 +5,21 @@ export const sceneConfigurations = (userName, charArr) => [
         background: imagePaths[14],
         dialogues: [
             {
-                char: { image: charArr[0] },
-                storyteller: { name: "Бабушка", image: storytellers[0] },
+                char: { 
+                    image: charArr[0],
+                    position: {
+                        left: false,
+                        offset: '2'
+                    }
+                },
+                storyteller: { 
+                    name: "Бабушка", 
+                    image: storytellers[0],
+                    position: {
+                        left: true,
+                        offset: '2'
+                    }
+                },
                 dialogue: [
                     `Здравствуй, ${userName}! Я - Бабушка и у меня беда: книжка упала и все герои перемешались! Я уже старенькая и самой мне их не собрать. Поможешь мне это сделать? Тогда в путь!`,
                 ],

@@ -30,8 +30,8 @@ function switchScene() {
     if (sceneCounter < sceneConfigurations(userName, charArr).length) {
         const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
-        if (document.querySelector(".quest__btns-item")) {
-            document.querySelectorAll(".quest__btns-item").forEach((btn) => {
+        if (questWindow.querySelector(".quest__btns-item")) {
+            questWindow.querySelectorAll(".quest__btns-item").forEach((btn) => {
                 btn.style.opacity = "0";
             });
             setTimeout(() => {
@@ -54,17 +54,19 @@ function switchScene() {
                 storytellerImage.src = currentDialogue.storyteller.image;
                 questWindow.append(storytellerImage);
                 setTimeout(() => {
-                    document.querySelector(".quest__storyteller-image").style.opacity = "1";
+                    questWindow.querySelector(".quest__storyteller-image").style.opacity = "1";
                 }, 10);
             } else {
-                document.querySelector(".quest__text-storyteller").textContent = currentDialogue.storyteller.name;
+                questWindow.querySelector(".quest__text-storyteller").textContent = currentDialogue.storyteller.name;
+                questWindow.querySelector(".quest__storyteller-image").src = currentDialogue.storyteller.image;
             }
+            handlePersonPosition(currentDialogue.storyteller, ".quest__storyteller-image");
         } else {
-            if (document.querySelector(".quest__text-storyteller") && document.querySelector(".quest__storyteller-image")) {
-                document.querySelector(".quest__text-storyteller").remove();
-                document.querySelector(".quest__storyteller-image").style.opacity = "0";
+            if (questWindow.querySelector(".quest__text-storyteller") && questWindow.querySelector(".quest__storyteller-image")) {
+                questWindow.querySelector(".quest__text-storyteller").remove();
+                questWindow.querySelector(".quest__storyteller-image").style.opacity = "0";
                 setTimeout(() => {
-                    document.querySelector(".quest__storyteller-image").remove();
+                    questWindow.querySelector(".quest__storyteller-image").remove();
                 }, 400);
             }
         }
@@ -77,12 +79,15 @@ function switchScene() {
                 setTimeout(() => {
                     document.querySelector(".quest__char-image").style.opacity = "1";
                 }, 10);
+            } else {
+                questWindow.querySelector(".quest__char-image").src = currentDialogue.char.image;
             }
+            handlePersonPosition(currentDialogue.char, ".quest__char-image");
         } else {
-            if (document.querySelector(".quest__char-image")) {
-                document.querySelector(".quest__char-image").style.opacity = "0";
+            if (questWindow.querySelector(".quest__char-image")) {
+                questWindow.querySelector(".quest__char-image").style.opacity = "0";
                 setTimeout(() => {
-                    document.querySelector(".quest__char-image").remove();
+                    questWindow.querySelector(".quest__char-image").remove();
                 }, 400);
             }
         }
@@ -179,7 +184,7 @@ function handleQuizPart(currentDialogue) {
             </div>`
         );
         setTimeout(() => {
-            document.querySelector(".quest__action-img").style.opacity = "1";
+            questWindow.querySelector(".quest__action-img").style.opacity = "1";
         }, 10);
     } else {
         questWindow.setAttribute("istest", "false");
@@ -233,12 +238,12 @@ function resetQuest() {
     sceneCounter = 0;
     dialogueCounter = 0;
     response = [];
-    if (document.querySelector(".quest__text-storyteller") && document.querySelector(".quest__storyteller-image")) {
-        document.querySelector(".quest__text-storyteller").remove();
-        document.querySelector(".quest__storyteller-image").remove();
+    if (questWindow.querySelector(".quest__text-storyteller") && questWindow.querySelector(".quest__storyteller-image")) {
+        questWindow.querySelector(".quest__text-storyteller").remove();
+        questWindow.querySelector(".quest__storyteller-image").remove();
     }
-    if (document.querySelector(".quest__char-image")) {
-        document.querySelector(".quest__char-image").remove();
+    if (questWindow.querySelector(".quest__char-image")) {
+        questWindow.querySelector(".quest__char-image").remove();
     }
     clearTimeout(printTimeout);
 }
@@ -400,3 +405,19 @@ function init() {
 }
 
 init();
+
+function handlePersonPosition(person, personClass) {
+    const personImg = document.querySelector(personClass);
+    if (person.position) {
+        personImg.style.left = "";
+        personImg.style.right = "";
+        if (person.position.left === true) {
+            personImg.style.left = person.position.offset + "%";
+        } else {
+            personImg.style.right = person.position.offset + "%";
+        }
+    } else {
+        personImg.style.left = "";
+        personImg.style.right = "";
+    }
+}
