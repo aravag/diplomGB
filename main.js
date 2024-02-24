@@ -259,7 +259,7 @@ function resetQuest() {
     clearTimeout(printTimeout);
 }
 
- async function fetchAnswers(callback) {
+async function fetchAnswers(callback) {
     try {
         const answer = await fetch("answers.json");
         if (!answer.ok) {
