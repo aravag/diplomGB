@@ -1,5 +1,5 @@
 import { sceneConfigurations } from "./components/sceneConfigurations.js";
-import { charBoy, charGirl } from "./components/imagePreloader.js";
+import { preloadImages, images } from "./components/imagePreloader.js";
 
 const startBtn = document.querySelector(".start-quest__btn");
 const closeQuest = document.querySelector(".quest__controls-close");
@@ -23,12 +23,12 @@ let dialogueCounter = 0;
 let resultResponse = [];
 let response = [];
 let userName;
-let charArr = [];
+let chars = {};
 let printTimeout;
 
 function switchScene() {
-    if (sceneCounter < sceneConfigurations(userName, charArr).length) {
-        const currentScene = sceneConfigurations(userName, charArr)[sceneCounter];
+    if (sceneCounter < sceneConfigurations(userName, chars).length) {
+        const currentScene = sceneConfigurations(userName, chars)[sceneCounter];
         const currentDialogue = currentScene.dialogues[dialogueCounter];
         if (questWindow.querySelector(".quest__btns-item")) {
             questWindow.querySelectorAll(".quest__btns-item").forEach((btn) => {
@@ -151,7 +151,7 @@ function printText(text, textContainer, callback) {
             if (index === text.length - 1) {
                 callback();
             }
-        }, index * 30);
+        }, index * 20);
     });
 }
 
@@ -306,6 +306,22 @@ function checkAndStartQuiz() {
     }
 }
 
+function handlePersonPosition(person, personClass) {
+    const personImg = document.querySelector(personClass);
+    if (person.position) {
+        personImg.style.left = "";
+        personImg.style.right = "";
+        if (person.position.left === true) {
+            personImg.style.left = person.position.offset + "%";
+        } else {
+            personImg.style.right = person.position.offset + "%";
+        }
+    } else {
+        personImg.style.left = "";
+        personImg.style.right = "";
+    }
+}
+
 function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
@@ -323,7 +339,7 @@ function init() {
     chooseCharacterBtns.forEach((item, index) =>
         item.addEventListener("click", () => {
             activateNextPart();
-            index == 0 ? (charArr = charBoy) : (charArr = charGirl);
+            index === 0 ? chars = images.charBoy : chars = images.charGirl;
         })
     );
 
@@ -404,20 +420,6 @@ function init() {
     window.addEventListener("resize", handleArrowBtns);
 }
 
-init();
-
-function handlePersonPosition(person, personClass) {
-    const personImg = document.querySelector(personClass);
-    if (person.position) {
-        personImg.style.left = "";
-        personImg.style.right = "";
-        if (person.position.left === true) {
-            personImg.style.left = person.position.offset + "%";
-        } else {
-            personImg.style.right = person.position.offset + "%";
-        }
-    } else {
-        personImg.style.left = "";
-        personImg.style.right = "";
-    }
-}
+preloadImages(images, () => {
+    init();
+});
