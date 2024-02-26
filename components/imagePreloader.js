@@ -31,7 +31,18 @@ export const images = {
         storyteller1: "./images/storyteller1.png",
         storyteller2: "./images/storyteller2.png",
     },
+    mask: {
+        mask1: './images/maskImage.png',
+        mask2: './images/mask.png'
+    }
 };
+
+const imagesAsArray = Object.values(images).reduce((acc, category) => {
+    Object.values(category).forEach(path => acc.push(path));
+    return acc;
+}, []);
+
+const totalLength = imagesAsArray.length;
 
 export const preloadImages = (images, callback) => {
     let loadedImages = 0;
@@ -45,11 +56,16 @@ export const preloadImages = (images, callback) => {
                 img.src = images[entries][key];
                 img.onload = () => {
                     loadedImages++;
+                    updateProgress(loadedImages, totalLength)
                     if (loadedImages === totalImages) {
                         callback();
                     }
                 }
-            }            
+            }   
         }
     }
 };
+
+function updateProgress(loadedImages, totalLength) {
+    const progress = Math.round((loadedImages / totalLength) * 100);
+}

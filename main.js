@@ -326,12 +326,14 @@ function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
             questBackgroundImage.src = "./images/bg1.png";
-            handleCharacterPage(true);
             questWindow.classList.add("active");
-            questCharacterParts[0].classList.add("active");
             setTimeout(() => {
                 questWindow.style.opacity = "1";
             }, 100);
+            preloadImages(images, () => {
+                handleCharacterPage(true);
+                questCharacterParts[0].classList.add("active");
+            });
         }
     });
 
@@ -420,6 +422,4 @@ function init() {
     window.addEventListener("resize", handleArrowBtns);
 }
 
-preloadImages(images, () => {
-    init();
-});
+init();
