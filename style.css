@@ -639,6 +639,8 @@ h2 {
 }
 
 .quest__preloader-progress {
+    max-width: 100%;
+    transition: 0.1s width ease;
     width: 0;
     background: #9EFC86;
     border-radius: 3px;
@@ -668,4 +670,5 @@ h2 {
     border-style: solid;
     border-color: transparent;
     padding: 0 0 4px;
+    overflow: hidden;
 }
