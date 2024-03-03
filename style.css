@@ -63,7 +63,9 @@ h2 {
 .quest__character-container,
 .quest__character-name,
 .quest__result-btns,
-.quest__result {
+.quest__result,
+.quest__preloader,
+.quest__nav-container {
     display: flex;
     display: -webkit-box;
     display: -moz-box;
@@ -91,7 +93,8 @@ h2 {
 
 .quest,
 .quest__character-part,
-.quest__character-name {
+.quest__character-name,
+.quest__preloader {
     align-items: center;
     -webkit-box-align: center;
     -moz-box-align: center;
@@ -130,14 +133,16 @@ h2 {
     -ms-flex-direction: row;
 }
 
-.quest {
+.quest,
+.quest__nav-container {
     justify-content: flex-end;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
 }
 
-.quest[istest="true"] .quest__btns {
+.quest[istest="true"] .quest__btns,
+.quest__preloader {
     justify-content: center;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
@@ -167,6 +172,14 @@ h2 {
     object-fit: cover;
 }
 
+.quest[istest="true"] .quest__btns {
+    max-width: unset;
+}
+
+.quest[istest="true"] .quest__btns-item {
+    width: unset;
+}
+
 .quest__background-image,
 .quest__background,
 .quest__text-dialogue,
@@ -182,7 +195,10 @@ h2 {
 .quest__character-input,
 .quest__nav-container,
 .quest__overlay,
-.quest__preloader {
+.quest__preloader,
+.quest__btns-item,
+.quest__preloader-progress::before,
+.quest__preloader-progress::after {
     width: 100%;
 }
 
@@ -194,13 +210,17 @@ h2 {
 .quest__confirm-btns-item img,
 .quest__btns,
 .quest__overlay,
-.quest__preloader {
+.quest__preloader,
+.quest__preloader-progress,
+.quest__preloader-progress::before {
     height: 100%;
 }
 
 .quest__action-img,
 .quest__text,
-.quest__nav-container {
+.quest__nav-container,
+.quest__preloader-progress,
+.quest__character-item-btn {
     position: relative;
 }
 
@@ -215,7 +235,9 @@ h2 {
 .quest__info-close,
 .arrow,
 .quest__storyteller-image,
-.quest__char-image {
+.quest__char-image,
+.quest__preloader-progress::before,
+.quest__preloader-progress::after {
     position: absolute;
 }
 
@@ -237,7 +259,9 @@ h2 {
 .quest__action-img:after,
 .arrow.arrow__up,
 .quest__overlay,
-.quest__preloader {
+.quest__preloader,
+.quest__preloader-progress::before,
+.quest__preloader-progress::after {
     top: 0;
 }
 
@@ -255,7 +279,9 @@ h2 {
 .quest__action-img:after,
 .quest[istest="true"] .quest__btns,
 .quest__overlay,
-.quest__preloader {
+.quest__preloader,
+.quest__preloader-progress::before,
+.quest__preloader-progress::after {
     left: 0;
 }
 
@@ -282,7 +308,6 @@ h2 {
     height: 100vh;
     width: 100vw;
     color: #ffffff;
-    overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -548,7 +573,9 @@ h2 {
     background: url('./images/arrow.svg') center/contain no-repeat;
 }
 
-.quest__nav-container {
+.quest__nav-container,
+.quest__preloader-progress,
+.quest {
     overflow: hidden;
 }
 
@@ -579,36 +606,16 @@ h2 {
     padding: 0 1.25rem;
 }
 
-/* Maybe */
-
 .quest__btns {
     max-width: min(400px, 50%);
-}
-
-.quest__nav-container {
-    display: flex;
-    justify-content: flex-end;
 }
 
 .arrow {
     right: calc(min(400px, 50%) / 2);
 }
 
-.quest__btns-item {
-    width: 100%;
-}
-
-.quest[istest="true"] .quest__btns {
-    max-width: unset;
-}
-
-.quest[istest="true"] .quest__btns-item {
-    width: unset;
-}
-
 .quest__character-item-btn {
     margin-top: 0.5rem;
-    position: relative;
 }
 
 .quest__info-desc {
@@ -632,7 +639,33 @@ h2 {
 }
 
 .quest__preloader-progress {
-    height: 10px;
     width: 0;
-    background: red;
+    background: #9EFC86;
+    border-radius: 3px;
+}
+
+.quest__preloader-progress::before {
+    content: '';
+    background: linear-gradient(180deg, #41D163 -4.91%, #30B95A 31.45%, #229C5F 44.91%, #117865 66.46%, #0B6B68 77.23%, #107467 83.96%, #1D8E66 93.38%, #34B864 106.85%, #41D163 113.58%);
+}
+
+.quest__preloader-progress::after {
+    content: '';
+    height: 50%;
+    background: linear-gradient(270deg, #A1C472 1.2%, #000000 115.13%);
+    background-blend-mode: screen;
+    mix-blend-mode: screen;
+}
+
+.quest__preloader-container {
+    height: 50px;
+    width: 50vw;
+    border-image-source: url(./images/progress.svg);
+    -webkit-border-image-source: url(./images/progress.svg);
+    border-width: 0.75rem;
+    border-image-slice: 8 8 9 8 fill;
+    -webkit-border-image-slice: 8 8 9 8 fill;
+    border-style: solid;
+    border-color: transparent;
+    padding: 0 0 4px;
 }

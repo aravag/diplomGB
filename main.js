@@ -479,7 +479,9 @@ function preloader(callback) {
     questWindow.insertAdjacentHTML(
         "beforeend",
         `<div class="quest__preloader">
-            <div class="quest__preloader-progress">0</div>
+            <div class="quest__preloader-container">
+                <div class="quest__preloader-progress"></div>
+            </div>
         </div>`
     );
 
