@@ -2,23 +2,23 @@ import { images } from "./imagePreloader.js";
 
 export const sceneConfigurations = (userName, chars) => [
     {
-        background: images.bg.bg1,
+        background: images.bg.bg2,
         dialogues: [
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: [
                     `Здравствуй, ${userName}! Я - Бабушка и у меня беда: книжка упала и все герои перемешались! Я уже старенькая и самой мне их не собрать. Поможешь мне это сделать? Тогда в путь!`,
@@ -26,20 +26,20 @@ export const sceneConfigurations = (userName, chars) => [
                 btns: ["Приятно познакомиться! В путь!", "Поехали!"],
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: [
                     `Знаешь, ${userName}, в русских сказках всегда присутствует волшебство и удивительные существа. Например, Иван-Царевич должен был сразиться с Драконом, чтобы спасти прекрасную царевну, но по итогу просто подружился с ним.`,
@@ -47,20 +47,20 @@ export const sceneConfigurations = (userName, chars) => [
                 btns: ["Ого, как интересно", "Лучше бы сразился с драконом"],
             },
             {
-                char: { 
-                    image: chars.char1,
+                char: {
+                    image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "3",
+                    },
                 },
                 dialogue: [
                     "Сказочные персонажи могут быть такими разными, от смешных до загадочных. Мы встретим их и восстановим сказочное равновесие. Давай посмотрим, что нас ждёт в этом волшебном путешествии.",
@@ -74,20 +74,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage1,
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "3",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "3",
+                    },
                 },
                 dialogue: [`Молодец, ${userName}! Начинает получаться. Так же, как и в сказке 'Репка', мы помогаем друг другу! Идём дальше?`],
                 btns: ["Да!", "А у меня есть выбор?"],
@@ -99,58 +99,58 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage2,
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Отлично! Интересный факт: все знают нашу сказку 'Волк и семеро козлят'. А у румынов есть свой аналог 'Коза и три козленка'."],
                 btns: ["Далее..."],
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "5",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "5",
+                    },
                 },
                 dialogue: ["И когда Россия и Румыния снимали совместно фильм-сказку 'Мама' по мотивам этой сказки, то взяли среднее количество козлят, то есть пять!"],
                 btns: ["Как интересно!", "Ясно..."],
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "20",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "20",
+                    },
                 },
                 dialogue: ["Посмотри: впереди девочка. Ей нужна помощь. Давай скорей поможем ей!"],
                 btns: ["Давай!", "Что с ней случилось?"],
@@ -162,39 +162,39 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage3,
             },
             {
-                char: { 
-                    image: chars.char1,
+                char: {
+                    image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "70",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "70",
+                    },
                 },
                 dialogue: ["Обижать людей нехорошо. Надеюсь, ты не обижаешь никого?"],
                 btns: ["Стараюсь этого не делать", "Иногда могу ненароком кого-нибудь обидеть"],
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "73",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "73",
+                    },
                 },
                 dialogue: ["Ладно, нет времени останавливаться. Смотри, а что это за странный дом впереди?"],
                 btns: ["Где?", "Давайте посмотрим..."],
@@ -206,20 +206,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage4,
             },
             {
-                char: { 
+                char: {
                     image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     image: images.storytellers.storyteller1,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
                 dialogue: ["Прекрасно! Это был вопрос с подвохом! Ведь в данный момент дом не стоит, поэтому по фото и не скажешь, какие у него ножки."],
                 btns: ["Далее..."],
@@ -233,23 +233,23 @@ export const sceneConfigurations = (userName, chars) => [
         ],
     },
     {
-        background: images.bg.bg1,
+        background: images.bg.bg3,
         dialogues: [
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: [
                     `Мур-мяу, ну, что ж, приятно познакомиться, ${userName}! Я - Кот учёный, бабушкин друг. Она попросила тебя сопроводить в этом нелегком путешествии! Пойдём покажу, что ещё в книге нужно расставить по местам.`,
@@ -263,39 +263,39 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage5,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Так вот, как его звали! А я думал иначе. Теперь-то буду знать!"],
                 btns: ["Далее..."],
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Кто это у нас тут отдыхает, давай-ка узнаем."],
                 btns: ["Хорошо...", "Пусть отдыхает..."],
@@ -307,20 +307,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage6,
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Надёюсь мы не ошиблись, пойдём дальше."],
                 btns: ["Далее..."],
@@ -332,20 +332,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage7,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "5",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "5",
+                    },
                 },
                 dialogue: [`Так держать, ${userName}, не сбавляем темп! Мур-мяу.`],
                 btns: ["Далее..."],
@@ -357,20 +357,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage8,
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: [`Ну, как тебе, ${userName}? Не слишком сложно? Всё получится, нужно помочь ещё паре героев, вперёд.`],
                 btns: ["Проще простого", "Вроде, не слишком сложно", "Местами трудновато, но я справлюсь"],
@@ -382,20 +382,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage9,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Что ж, думаю мы на правильном пути!"],
                 btns: ["Далее..."],
@@ -407,57 +407,57 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage10,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
                 dialogue: ["Идем в хорошем темпе! Слышишь, кто-то что-то кричит."],
                 btns: ["Далее..."],
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Бабушка", 
+                storyteller: {
+                    name: "Бабушка",
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Кот!!! Я нашла страницу, заберешь?"],
                 btns: ["Далее..."],
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Посмотри, что случилось с лисой и петушком!"],
                 btns: ["Далее..."],
@@ -469,77 +469,77 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage11,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
                 dialogue: ["Вот оно что! Продолжим?"],
                 btns: ["Да...", "Да!", "Да!!!"],
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "10",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "10",
+                    },
                 },
                 dialogue: ["Больше оптимизма! Осталось чуть-чуть!"],
                 btns: ["Хорошо..."],
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "10",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "10",
+                    },
                 },
                 dialogue: ["Отвлеку тебя немного интересным фактом! Ты заешь сказку 'Муха-Цокотуха'? Мало кто знает, что такое цокатуха? Слово 'цокотуха' просто-напросто означает 'болтушка'."],
                 btns: ["Далее..."],
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "6",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "6",
+                    },
                 },
                 dialogue: ["Смотри, еще страница! Т-там собака??? Мне страшно!!!"],
                 btns: ["Не бойся!", "Все будет хорошо!"],
@@ -551,20 +551,20 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage12,
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Фух! Я перепугался... Лихо ты справляешься с задачами!"],
                 btns: ["Спасибо!", "Стараюсь."],
@@ -576,39 +576,39 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage13,
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
                 dialogue: ["Интересно-интересно, кажется я становлюсь ещё умнее, хотя куда уж больше."],
                 btns: ["Далее..."],
             },
             {
-                char: { 
+                char: {
                     image: chars.char2,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "4",
+                    },
                 },
                 dialogue: ["Смотри, тут какой-то поломанный дом."],
                 btns: ["Далее..."],
@@ -620,22 +620,22 @@ export const sceneConfigurations = (userName, chars) => [
                 actionImage: images.action.actionImage14,
             },
             {
-                char: { 
-                    image: chars.char2,
+                char: {
+                    image: chars.char1,
                     position: {
                         left: false,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                storyteller: { 
-                    name: "Кот ученый", 
+                storyteller: {
+                    name: "Кот ученый",
                     image: images.storytellers.storyteller2,
                     position: {
                         left: true,
-                        offset: '2'
-                    }
+                        offset: "2",
+                    },
                 },
-                dialogue: ["Молодец, мы очень ценим твою помощь, пришло время узнать результат."],
+                dialogue: [`Молодец, ${userName}, мы очень ценим твою помощь, пришло время узнать результат.`],
                 btns: ["Результат"],
             },
         ],
