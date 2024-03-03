@@ -640,8 +640,9 @@ h2 {
 
 .quest__preloader-progress {
     max-width: 100%;
-    transition: 0.1s width ease;
+    min-width: 20rem;
     width: 0;
+    transition: 0.1s width ease;
     background: #9EFC86;
     border-radius: 3px;
 }
