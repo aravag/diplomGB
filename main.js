@@ -183,6 +183,17 @@ function addBtns(currentDialogue) {
             }
             if (currentDialogue.isTestBtns) {
                 response.push(index);
+                fetchAnswers(() => {
+                console.log(index);
+                console.log(resultResponse[response.length - 1]);
+                if (index === resultResponse[response.length - 1]) {
+                    console.log('да');
+                    btnElement.style.boxShadow = "0 0 10px rgba(41, 189, 11, 0.8)";
+                }
+                else {
+                    console.log('нет');
+                    btnElement.style.boxShadow = "0 0 10px rgba(255, 38, 0, 0.8)";
+                }})
             }
         });
         questBtnsContainer.append(btnElement);
