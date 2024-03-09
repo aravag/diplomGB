@@ -214,10 +214,6 @@ function handleCharacterPage(bool) {
     bool ? questCharacterPage.classList.add("active") : questCharacterPage.classList.remove("active");
     questDialogue.style.display = bool ? "none" : "";
     questBtnsContainer.style.display = bool ? "none" : "";
-    handleCharactersParts();
-}
-
-function handleCharactersParts() {
     questCharacterParts.forEach((part) => {
         if (part.classList.contains("active")) {
             part.classList.remove("active");
@@ -351,7 +347,7 @@ function handlePersonPosition(person, personClass) {
     }
 }
 
-function fadeOut(element, callback = () => {}) {
+function fadeOut(element, callback = () => { }) {
     element.style.opacity = "0";
     setTimeout(() => {
         element.remove();
