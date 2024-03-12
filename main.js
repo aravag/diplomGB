@@ -368,7 +368,6 @@ function init() {
             questWindow.classList.add("active");
             fadeIn(questWindow, 100);
             preloader(() => {
-                console.log("done");
                 handleCharacterPage(true);
                 questCharacterParts[0].classList.add("active");
             });
