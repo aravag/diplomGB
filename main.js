@@ -365,6 +365,33 @@ function fadeIn(element, delay = 10) {
     }, delay);
 }
 
+function createOverlay() {
+    if (!questWindow.querySelector(".quest__overlay")) {
+        const overlay = document.createElement("div");
+        overlay.classList.add("quest__overlay");
+        questWindow.append(overlay);
+        fadeIn(overlay);
+    }
+}
+
+function preloader(callback) {
+    questWindow.insertAdjacentHTML(
+        "beforeend",
+        `<div class="quest__preloader">
+            <div class="quest__preloader-container">
+                <div class="quest__preloader-progress"></div>
+            </div>
+        </div>`
+    );
+
+    preloadImages(images, () => {
+        setTimeout(() => {
+            fadeOut(questWindow.querySelector(".quest__preloader"));
+            callback();
+        }, 500);
+    });
+}
+
 function init() {
     startBtn.addEventListener("click", () => {
         if (!questWindow.classList.contains("active")) {
@@ -465,30 +492,3 @@ function init() {
 }
 
 init();
-
-function createOverlay() {
-    if (!questWindow.querySelector(".quest__overlay")) {
-        const overlay = document.createElement("div");
-        overlay.classList.add("quest__overlay");
-        questWindow.append(overlay);
-        fadeIn(overlay);
-    }
-}
-
-function preloader(callback) {
-    questWindow.insertAdjacentHTML(
-        "beforeend",
-        `<div class="quest__preloader">
-            <div class="quest__preloader-container">
-                <div class="quest__preloader-progress"></div>
-            </div>
-        </div>`
-    );
-
-    preloadImages(images, () => {
-        setTimeout(() => {
-            fadeOut(questWindow.querySelector(".quest__preloader"));
-            callback();
-        }, 500);
-    });
-}

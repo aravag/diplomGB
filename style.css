@@ -670,6 +670,98 @@ h2 {
     -webkit-border-image-slice: 8 8 9 8 fill;
     border-style: solid;
     border-color: transparent;
-    padding: 0 0 4px;
+    padding: 0 0 0.25rem;
     overflow: hidden;
+}
+
+.quest__rotate {
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    z-index: 10000;
+    gap: 1.25rem;
+}
+
+.quest__rotate-text {
+    color: #000000;
+    text-shadow: none;
+    letter-spacing: 0.2px;
+    text-align: center;
+}
+
+.quest__rotate-img {
+    width: 50px;
+    aspect-ratio: 2.5 / 4;
+    border: 0.25rem solid #000000;
+    border-radius: 0.75rem;
+    position: relative;
+    animation: rotate 2s ease infinite;
+    opacity: 0;
+}
+
+.quest__rotate-img:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    transform: translateX(-50%);
+    height: 5px;
+    width: 0.875rem;
+    background: #000000;
+    border-radius: 99px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    60% {
+        transform: rotate(-90deg);
+        opacity: 1;
+    }
+    70% {
+        transform: rotate(-90deg);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .quest__rotate {
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    :root {
+        --dialoguePaddingTop:  1rem;
+        --dialoguePaddingBottom: 1.5rem;
+        --dialogueMarginBottom: max(1.5rem, min(4dvh, 2rem));
+        
+    }
+
+    .quest__info,
+    .quest__btns {
+        gap: 1rem;
+    }
+
+    .quest__btns {
+        padding: 0 1.25rem;
+        margin-bottom: calc(var(--dialogueMarginBottom) / 2 - 0.5rem);
+    }
+
+    .quest__info {
+        max-height: 80vh;
+        width: 70vw;
+    }
 }
