@@ -1,5 +1,5 @@
 :root {
-    --dialogueMarginBottom: max(1.75rem, min(7ddvh, 4rem));
+    --dialogueMarginBottom: max(1.75rem, min(7dvh, 4rem));
     --dialogueMarginTop: 0px;
     --dialoguePaddingTop: 1.25rem;
     --dialoguePaddingBottom: 2rem;
@@ -8,8 +8,8 @@
     --dialogueHeight: calc(var(--dialogueMarginTop) + var(--dialogueMarginBottom) + var(--dialoguePaddingTop) + var(--dialoguePaddingBottom) + var(--dialogueBorderBlock) * 2px + var(--dialogueBorderWidth) * 2);
     --storytellerPaddingBottom: 0.25rem;
     --storytellerPaddingInline: 1rem;
-    --char-height: max(calc(100ddvw / 2.75), 84ddvh);
-    --char-bottom: calc(-1.5rem - var(--char-height) + 84ddvh);
+    --char-height: max(calc(100dvw / 2.75), 84dvh);
+    --char-bottom: calc(-1.5rem - var(--char-height) + 84dvh);
 }
 
 @font-face {
@@ -746,7 +746,7 @@ h2 {
     :root {
         --dialoguePaddingTop:  1rem;
         --dialoguePaddingBottom: 1.5rem;
-        --dialogueMarginBottom: max(1.5rem, min(4ddvh, 2rem));
+        --dialogueMarginBottom: max(1.5rem, min(4dvh, 2rem));
         
     }
 
