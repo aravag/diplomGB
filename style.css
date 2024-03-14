@@ -94,7 +94,8 @@ h2 {
 .quest,
 .quest__character-part,
 .quest__character-name,
-.quest__preloader {
+.quest__preloader,
+.quest__rotate {
     align-items: center;
     -webkit-box-align: center;
     -moz-box-align: center;
@@ -117,7 +118,8 @@ h2 {
 .quest__confirm,
 .quest__info,
 .quest__character-name,
-.quest__result {
+.quest__result,
+.quest__rotate {
     flex-direction: column;
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
@@ -142,7 +144,8 @@ h2 {
 }
 
 .quest[istest="true"] .quest__btns,
-.quest__preloader {
+.quest__preloader,
+.quest__rotate {
     justify-content: center;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
@@ -220,7 +223,8 @@ h2 {
 .quest__text,
 .quest__nav-container,
 .quest__preloader-progress,
-.quest__character-item-btn {
+.quest__character-item-btn,
+.quest__rotate-img {
     position: relative;
 }
 
@@ -237,7 +241,8 @@ h2 {
 .quest__storyteller-image,
 .quest__char-image,
 .quest__preloader-progress::before,
-.quest__preloader-progress::after {
+.quest__preloader-progress::after,
+.quest__rotate-img:before {
     position: absolute;
 }
 
@@ -246,7 +251,8 @@ h2 {
 .quest__confirm,
 .quest__info,
 .quest__overlay,
-.quest__preloader {
+.quest__preloader,
+.quest__rotate {
     position: fixed;
 }
 
@@ -261,17 +267,14 @@ h2 {
 .quest__overlay,
 .quest__preloader,
 .quest__preloader-progress::before,
-.quest__preloader-progress::after {
+.quest__preloader-progress::after ,
+.quest__rotate{
     top: 0;
 }
 
 .arrow.arrow-down,
 .quest[istest="true"] .quest__btns {
     bottom: 0;
-}
-
-.arrow.arrow-down {
-    transform: rotate(180deg);
 }
 
 .quest__background,
@@ -281,7 +284,8 @@ h2 {
 .quest__overlay,
 .quest__preloader,
 .quest__preloader-progress::before,
-.quest__preloader-progress::after {
+.quest__preloader-progress::after,
+.quest__rotate {
     left: 0;
 }
 
@@ -302,6 +306,10 @@ h2 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.arrow.arrow-down {
+    transform: rotate(180deg);
 }
 
 .quest {
@@ -437,7 +445,8 @@ h2 {
 .arrow,
 .quest__storyteller-image,
 .quest__char-image,
-.quest__overlay {
+.quest__overlay,
+.quest__rotate-img {
     opacity: 0;
 }
 
@@ -679,12 +688,6 @@ h2 {
     height: 100dvh;
     background: #ffffff;
     display: none;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    justify-content: center;
     z-index: 10000;
     gap: 1.25rem;
 }
@@ -701,14 +704,11 @@ h2 {
     aspect-ratio: 2.5 / 4;
     border: 0.25rem solid #000000;
     border-radius: 0.75rem;
-    position: relative;
     animation: rotate 2s ease infinite;
-    opacity: 0;
 }
 
 .quest__rotate-img:before {
     content: '';
-    position: absolute;
     left: 50%;
     top: 3px;
     transform: translateX(-50%);
@@ -752,7 +752,7 @@ h2 {
 
     .quest__info,
     .quest__btns {
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .quest__btns {
@@ -762,6 +762,49 @@ h2 {
 
     .quest__info {
         max-height: 80dvh;
+    }
+
+    .quest__character,
+    .quest__info  {
         width: 70dvw;
+    }
+    
+    .quest__character-desc,
+    .quest__confirm-title,
+    .quest__text-dialogue,
+    .quest__info-desc {
+        font-size: 1.25rem;
+    }
+    
+    .start-quest__btn, 
+    .quest__controls-item, 
+    .quest__character-begin, 
+    .quest__character-item, 
+    .quest__character-start, 
+    .quest__result-btns-item,
+    .quest__character-item-btn,
+    .quest__btns-item,
+    .quest__text-storyteller,
+    .quest__result-finals {
+        font-size: 1rem;
+    }
+    
+    .quest__character-title,
+    .quest__info-title,
+    .quest__result-title {
+        font-size: 2rem;
+    }
+    
+    .quest__btns {
+        max-width: min(350px, 50%);
+    }
+
+    .quest__confirm-btns-item {
+        width: 50px;
+        height: 50px;
+    }
+
+    .quest__confirm-btns {
+        margin-bottom: -50px;
     }
 }
