@@ -461,10 +461,9 @@ function init() {
             questWindow.insertAdjacentHTML(
                 "beforeend",
                 `<div class="quest__info">
-                    <h2 class="quest__info-title">Some Title</h2>
-                    <p class="quest__info-desc">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, deserunt? Inventore exercitationem laboriosam asperiores quidem. Dolore, repellendus quibusdam quam, at quia voluptatem optio mollitia rem error dolor, beatae soluta illum?
-                        Fugiat unde mollitia quibusdam nemo ipsam esse cumque vitae facilis, iure sapiente nisi, aliquam incidunt pariatur aliquid, quisquam fuga odit quam dignissimos ullam distinctio? Vero quaerat amet ratione asperiores ullam?
-                        Illo ad maxime non nesciunt!</p>
+                    <h2 class="quest__info-title">Информация о игре</h2>
+                    <p class="quest__info-desc">Это игра, где вы будете отвечать на вопросы так, как вы считаете правильным!
+                    Тут нет строгих правил, просто доверьтесь своим знаниям и интуиции.</p>
                     <div class="quest__info-close">
                         <img src="./images/close.svg" alt="no">
                     </div>
